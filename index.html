@@ -68,8 +68,21 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex-shrink-0 flex items-center gap-3">
-                    <!-- Logo Corporativo Incorporado -->
-                    <img src="Logo_Dation.png" alt="Dation Analytics Logo" class="h-10 w-auto object-contain hover:scale-105 transition-transform">
+                    
+                    <!-- LOGO VECTORIAL INTEGRADO (SVG) -->
+                    <!-- Esto asegura que el logo se vea bien sin depender de archivos externos -->
+                    <svg class="h-10 w-10 hover:scale-105 transition-transform" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Fondo del icono -->
+                        <rect x="0" y="0" width="40" height="40" rx="12" fill="#003049"/>
+                        <!-- Gráfico de barras estilizado -->
+                        <path d="M10 28H14V20H10V28Z" fill="#42ffd7"/>
+                        <path d="M18 28H22V14H18V28Z" fill="#42ffd7" fill-opacity="0.8"/>
+                        <path d="M26 28H30V8H26V28Z" fill="#42ffd7" fill-opacity="0.6"/>
+                    </svg>
+
+                    <!-- SI QUIERES USAR TU IMAGEN DE GITHUB, DESCOMENTA LA LÍNEA DE ABAJO Y PEGA TU URL RAW: -->
+                    <!-- <img src="PEGA_AQUI_TU_URL_DE_GITHUB_RAW.png" alt="Dation Analytics Logo" class="h-10 w-auto object-contain hover:scale-105 transition-transform"> -->
+
                     <span class="font-bold text-xl tracking-tight text-[#003049]">Dation Analytics</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
@@ -406,9 +419,15 @@
                 Contactanos Ahora
             </a>
             
-            <!-- Logo Corporativo en Footer (Final de página) -->
+            <!-- Logo Corporativo en Footer con SVG -->
             <div class="mb-4 bg-white p-2 rounded-xl shadow-lg">
-                <img src="Logo_Dation.png" alt="Dation Analytics Logo" class="h-12 w-auto object-contain">
+                <!-- LOGO VECTORIAL (Mismo SVG que arriba) -->
+                <svg class="h-12 w-12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="40" height="40" rx="12" fill="#003049"/>
+                    <path d="M10 28H14V20H10V28Z" fill="#42ffd7"/>
+                    <path d="M18 28H22V14H18V28Z" fill="#42ffd7" fill-opacity="0.8"/>
+                    <path d="M26 28H30V8H26V28Z" fill="#42ffd7" fill-opacity="0.6"/>
+                </svg>
             </div>
 
             <p class="text-sm text-slate-400">© 2024 Dation Analytics. Todos los derechos reservados.</p>
