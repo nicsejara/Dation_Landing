@@ -1,579 +1,3263 @@
-<!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+﻿<!DOCTYPE html>
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dation Analytics | Inteligencia de Negocios y Rentabilidad</title>
-    <!-- Favicon -->
+    <title>Dation | Decision Data Assets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/nicsejara/Dation_Landing/main/Logo.png">
-    
-    <!-- Librerías Externas -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Configuración Tailwind y Estilos -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: {
-                        brand: {
-                            dark: '#003049', // Azul Prusia
-                            cyan: '#42ffd7', // Cian Vibrante
-                            cyanHover: '#20b2aa',
-                            light: '#e0fbf6',
-                            gray: '#F9FAFB'
-                        }
-                    },
-                    boxShadow: {
-                        'glow': '0 0 20px rgba(66, 255, 215, 0.3)',
-                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)'
-                    }
-                }
+
+    <style>
+        /* --- 1. DESIGN SYSTEM & RESET (OPTIMIZED) --- */
+        :root {
+            /* --- PALETA --- */
+            --bg-card: #050505;
+            --bg-card-hover: #0a0a0a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: #1f1f1f;
+
+            /* --- ACENTOS --- */
+            --accent-cyan: #06b6d4;
+            --accent-indigo: #6366f1;
+            --brand-gradient: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
+
+            --accent-glow: rgba(6, 182, 212, 0.4);
+            --glass-bg: rgba(0, 0, 0, 0.85);
+
+            /* Colores Funcionales */
+            --color-retail: #f43f5e;
+            --color-fintech: #3b82f6;
+            --color-logistics: #f59e0b;
+            --color-kpi: #10b981;
+
+            --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+            --max-width: 1200px;
+
+            /* --- LAYOUT SYSTEM --- */
+            --navbar-height: 70px;
+            --section-spacing: 100px;
+            --container-padding: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* FIX ACCESIBILIDAD */
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--accent-cyan);
+            outline-offset: 4px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section[id] {
+            scroll-margin-top: var(--navbar-height);
+        }
+
+        body {
+            margin: 0;
+            background-image: linear-gradient(to bottom,
+                    #000000 0%,
+                    #020203 25%,
+                    #050505 50%,
+                    #020203 75%,
+                    #000000 100%);
+            background-color: #000000;
+            color: var(--text-main);
+            font-family: var(--font-stack);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            line-height: 1.6;
+            padding-top: var(--navbar-height);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- CLASES DE ESTRUCTURA --- */
+        .section-block {
+            padding: var(--section-spacing) 0;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .container-centered {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+
+        /* --- COMPONENTE VISUAL: INTELLIGENCE ASSEMBLY LINE (PRO) --- */
+
+        .assembly-line-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            /* Distribución perfecta del espacio */
+            justify-content: space-between;
+            padding: 40px 30px;
+
+            /* NUEVO FONDO: Deep Tech Gradient (Sin cuadrícula) */
+            background: radial-gradient(circle at center,
+                    rgba(99, 102, 241, 0.15) 0%,
+                    /* Centro Indigo sutil */
+                    rgba(5, 5, 5, 0.95) 70%
+                    /* Borde oscuro */
+                );
+            border-radius: 24px;
+            /* Bordes más suaves */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            /* Borde sutil */
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+            /* Profundidad interna */
+            position: relative;
+            overflow: hidden;
+            min-width: 340px;
+        }
+
+        /* Efecto de resplandor ambiental */
+        .assembly-line-container::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- ELEMENTOS COMUNES --- */
+        .neural-node {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            /* Aseguramos que los nodos no se aplasten */
+            flex-shrink: 0;
+        }
+
+        .node-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #0f1014;
+            /* Fondo sólido para tapar líneas detrás */
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .node-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* --- SECCIÓN 1: INPUTS (Columna Izquierda) --- */
+        .input-stack {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+            /* Separación vertical de inputs */
+            position: relative;
+            z-index: 2;
+        }
+
+        .neural-node.input .node-icon-wrapper {
+            width: 40px;
+            /* Inputs un poco más pequeños */
+            height: 40px;
+            font-size: 14px;
+            border-color: #334155;
+        }
+
+        /* --- CONECTOR "BRACKET" (La unión curva) --- */
+        .merger-bracket {
+            display: flex;
+            align-items: center;
+            width: 20px;
+            /* Ancho fijo para la curva */
+            height: 60px;
+            /* Altura que abarca los dos inputs */
+
+            /* Dibujo de la línea curva */
+            border-top: 2px solid #1e293b;
+            border-bottom: 2px solid #1e293b;
+            border-right: 2px solid #1e293b;
+            border-radius: 0 12px 12px 0;
+            /* Curvatura */
+
+            margin-left: -5px;
+            /* Pegado a los inputs */
+            margin-right: 0;
+            z-index: 1;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        /* --- LÍNEAS DE CONEXIÓN (Animadas y Equidistantes) --- */
+        .linear-connection {
+            flex-grow: 1;
+            /* Ocupa todo el espacio disponible */
+            height: 2px;
+            background: #1e293b;
+            /* Color base de la línea apagada */
+            position: relative;
+            margin: 0 2px;
+            /* Pequeña separación visual de los iconos */
+            min-width: 40px;
+            /* Espacio mínimo garantizado */
+        }
+
+        /* Animación de Pulso (La Energía) */
+        .pulse-beam {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            /* Longitud del rayo */
+            height: 100%;
+
+            /* Gradiente para efecto cometa */
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+
+            opacity: 0;
+            animation: flowRight 2.5s infinite linear;
+            filter: drop-shadow(0 0 5px var(--accent-cyan));
+        }
+
+        @keyframes flowRight {
+            0% {
+                left: -40%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                left: 100%;
+                opacity: 0;
             }
         }
-    </script>
-    <style>
-        /* Animaciones y Utilidades */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, visibility;
+
+        /* SECUENCIA DE TIEMPOS (Timing perfecto) */
+        /* Línea 1: Merger -> Modelo */
+        .linear-connection.step-1 .pulse-beam {
+            animation-delay: 0s;
         }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: none;
+
+        /* Línea 2: Modelo -> IA */
+        .linear-connection.step-2 .pulse-beam {
+            animation-delay: 0.8s;
         }
-        
-        /* Botón Gradiente Corporativo */
+
+        /* Línea 3: IA -> Decisión */
+        .linear-connection.step-3 .pulse-beam {
+            animation-delay: 1.6s;
+        }
+
+        /* --- ESTILOS DE ESTADO (Colores) --- */
+
+        /* MODELO */
+        .neural-node.model .node-icon-wrapper {
+            border-color: var(--accent-indigo);
+            color: var(--accent-indigo);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        /* IA (Optimizacion) */
+        .neural-node.ai .node-icon-wrapper {
+            background: linear-gradient(135deg, rgba(15, 16, 20, 1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-color: var(--accent-cyan);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.25);
+        }
+
+        /* DECISIÓN (Output Final) */
+        .neural-node.decision .node-icon-wrapper {
+            background: #fff;
+            border-color: #fff;
+            color: #000;
+            width: 56px;
+            /* Más grande para destacar */
+            height: 56px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .neural-node.decision .node-label {
+            color: #fff;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        /* ESTRELLAS SVG */
+        .ai-stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .ai-star {
+            position: absolute;
+            fill: #ffffff;
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 1));
+            animation: twinkle-svg 2s infinite ease-in-out;
+            transform-origin: center;
+        }
+
+        .ai-star:nth-child(1) {
+            top: -8px;
+            right: -8px;
+            width: 14px;
+            height: 14px;
+            animation-delay: 0s;
+        }
+
+        .ai-star:nth-child(2) {
+            top: 38px;
+            right: -4px;
+            width: 10px;
+            height: 10px;
+            animation-delay: 0.7s;
+        }
+
+        .ai-star:nth-child(3) {
+            top: -4px;
+            left: -8px;
+            width: 8px;
+            height: 8px;
+            animation-delay: 1.2s;
+        }
+
+        @keyframes twinkle-svg {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8) rotate(0deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(15deg);
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .assembly-line-container {
+                display: none;
+            }
+        }
+
+        /* --- 2. COMPONENTS --- */
         .btn-primary {
-            background: #003049;
-            color: white;
+            background: var(--brand-gradient);
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        /* Micro-interacción Icono Botón */
+        .btn-primary i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(4px);
+        }
+
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-main);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Badge Optimizado */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 18px;
+            border-radius: 99px;
+            background: rgba(99, 102, 241, 0.1);
+            /* Tinte Indigo */
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #818cf8;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        /* --- COMPONENTE: SEPARADOR TECH --- */
+        .tech-divider-container {
+            width: 100%;
+            height: 0;
+            padding: 0 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+            overflow: visible;
+        }
+
+        .tech-divider {
+            width: 100%;
+            max-width: 600px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-indigo) 45%, var(--accent-cyan) 55%, transparent 100%);
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+
+        /* --- ESTILOS FOOTER (FINAL FIX) --- */
+        .footer {
+            background: transparent;
+            padding: 80px 0 40px;
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            /* Ajusté ligeramente las proporciones para dar más aire a la col. Soluciones */
+            grid-template-columns: 1.8fr 1.2fr 0.8fr 1.2fr;
+            gap: 40px;
+        }
+
+        /* Columna de Marca */
+        .footer-brand .logo {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        /* Títulos de Columna */
+        .footer-col h5 {
+            color: #fff;
+            margin-bottom: 24px;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        /* ENLACES: Corrección de UX (No wrap + No jump) */
+        .footer-col a {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s, transform 0.2s;
+            /* Transición suave */
+
+            /* 1. Obliga a mantenerse en un renglón */
+            white-space: nowrap;
+
+            /* 2. Necesario para que el transform funcione bien */
+            display: inline-block;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-cyan);
+            /* 3. Usamos transform en vez de padding para evitar que se mueva el layout */
+            transform: translateX(5px);
+        }
+
+        /* Contacto */
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 18px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .contact-item i {
+            color: var(--accent-cyan);
+            margin-top: 4px;
+            flex-shrink: 0;
+            /* Evita que el icono se aplaste */
+        }
+
+        .contact-item a {
+            /* Reset específico para links dentro de contacto si es necesario */
+            white-space: normal;
+            /* Aquí sí permitimos salto de línea si el mail es muy largo */
+        }
+
+        /* Redes Sociales */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: var(--accent-cyan);
+            color: #fff;
+            transform: translateY(-3px);
+            /* Pequeña elevación */
+        }
+
+        /* Footer Bottom */
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                /* 2 columnas en tablet */
+                gap: 40px;
+            }
+
+            .footer-brand {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                /* 1 columna en móvil */
+            }
+
+            .footer-brand {
+                grid-column: span 1;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        /* --- COMPONENTE: FAQ ACCORDION --- */
+        .faq-grid {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #333;
+            background: var(--bg-card-hover);
+        }
+
+        .faq-item[open] {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq-summary {
+            padding: 24px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .faq-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-icon {
+            color: var(--accent-cyan);
+            transition: transform 0.3s ease;
+            font-size: 14px;
+        }
+
+        .faq-item[open] .faq-icon {
+            transform: rotate(180deg);
+            color: var(--accent-indigo);
+        }
+
+        .faq-content {
+            padding: 0 24px 24px 24px;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* --- ESTILOS DEL LOGO IMAGEN --- */
+        .logo-img {
+            height: 50px;
+            /* Altura ideal para la barra de navegación */
+            width: auto;
+            /* Mantiene la proporción */
+            display: block;
+        }
+
+        /* Ajuste específico para el footer si quieres que sea un poco más grande ahí */
+        .footer-brand .logo-img {
+            height: 40px;
+        }
+
+        /* --- 3. NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--navbar-height);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo i {
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- 4. HERO SECTION OPTIMIZED --- */
+        .hero {
+            text-align: center;
+            position: relative;
+            background: transparent;
+            /* Flex layout para centrado vertical perfecto */
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            /* Aumentado para mayor impacto */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            /* Más grande en desktop */
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0 0 24px;
+            font-weight: 800;
+            /* Peso extra */
+        }
+
+        .shimmer-text {
+            background: linear-gradient(110deg, #94a3b8 35%, #ffffff 50%, #94a3b8 65%);
+            background-size: 250% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s infinite linear;
+            /* Más lento y elegante */
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 100% 0;
+            }
+
+            100% {
+                background-position: -100% 0;
+            }
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cbd5e1;
+            /* Gris más claro */
+            max-width: 700px;
+            margin: 0 auto 48px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* --- 6. PROBLEM AGITATION (REFACTORED 2x2) --- */
+        .problem-section {
+            background: transparent;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 Columnas para 4 items */
+            gap: 30px;
+        }
+
+        .problem-card {
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .problem-card:hover {
+            border-color: rgba(239, 68, 68, 0.4);
+            /* Rojo sutil al hover */
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .problem-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .problem-icon {
+            font-size: 20px;
+            color: #ef4444;
+            /* Rojo de Alerta */
+            background: rgba(239, 68, 68, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .problem-card h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .case-study-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 2px solid #ef4444;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        .case-label {
+            font-weight: 700;
+            color: #ef4444;
+            font-style: normal;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .problem-pain {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .pain-highlight {
+            color: #e2e8f0;
+            /* Texto un poco más brillante para el dolor */
+            font-weight: 500;
+        }
+
+        /* --- 7. SERVICES (BENTO GRID) --- */
+        .section-header {
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .section-subtitle {
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            margin: 0 0 16px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            font-size: 18px;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(320px, auto);
+            gap: 24px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+
+        .bento-card:hover {
+            border-color: #333;
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+        }
+
+        .col-span-2 {
+            grid-column: span 2;
+        }
+
+        .row-span-2 {
+            grid-row: span 2;
+        }
+
+        .col-span-3 {
+            grid-column: span 3;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent-cyan);
+            margin-bottom: 24px;
+        }
+
+        .bento-card h3 {
+            font-size: 22px;
+            margin: 0 0 12px;
+        }
+
+        .bento-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .process-list {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .process-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+
+        .process-number {
+            font-family: monospace;
+            color: var(--accent-indigo);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .process-text {
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+
+
+        /* --- 8. INDUSTRIES (DASHBOARD TABS) --- */
+        .industries-section {
+            background: transparent;
+        }
+
+        .dashboard-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .dash-pill {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 12px 16px;
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .dash-pill:hover {
+            border-color: #333;
+            color: var(--text-main);
+        }
+
+        .dash-pill.active {
+            background: var(--brand-gradient);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            font-weight: 600;
+        }
+
+        .dashboard-container {
+            min-height: 400px;
+            position: relative;
+        }
+
+        .asset-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .asset-card.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            pointer-events: all;
+            z-index: 10;
+        }
+
+        .asset-data {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .asset-tag {
+            display: inline-block;
+            color: var(--accent-cyan);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .asset-title {
+            font-size: 32px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tech-stack-list {
+            margin-bottom: 30px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .tech-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-indigo);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-indigo);
+        }
+
+        .kpi-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 3px solid var(--color-kpi);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+        }
+
+        .kpi-value {
+            color: var(--color-kpi);
+            font-weight: 700;
+            font-size: 18px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .kpi-desc {
+            font-size: 13px;
+            color: #d1d5db;
+            margin: 0;
+        }
+
+        .asset-link {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: gap 0.2s;
+        }
+
+        .asset-link:hover {
+            gap: 12px;
+            color: var(--accent-cyan);
+        }
+
+        .asset-visual {
+            position: relative;
+            background: #0f1014;
+            min-height: 400px;
+        }
+
+        .asset-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            mix-blend-mode: normal;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        .asset-card:hover .asset-img {
+            opacity: 1;
+            transform: scale(1.03);
+        }
+
+        .visual-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--bg-card) 0%, transparent 30%, transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- 9. CTA SECTION --- */
+        .cta-section {
+            background: transparent;
+            position: relative;
+            text-align: center;
+        }
+
+        .cta-card {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #0f1014 0%, #050505 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 32px;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px -20px rgba(99, 102, 241, 0.1);
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-indigo), transparent);
+            opacity: 0.5;
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-microcopy {
+            display: block;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        /* --- 10. FOOTER --- */
+        .footer {
+            background: transparent;
+            padding: 100px 0 40px;
+            position: relative;
+            border: none;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+        }
+
+        .footer-brand h4 {
+            margin: 0 0 20px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 15px;
+            max-width: 280px;
+        }
+
+        .footer-col h5 {
+            color: #fff;
+            margin-bottom: 24px;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 14px;
+        }
+
+        .footer-col a {
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .location-tag {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+
+        .footer-bottom {
+            margin: 80px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* --- ESTILOS BLOQUE FAQ: COLUMNAS INDEPENDIENTES (TWIN STACKS) --- */
+
+        .faq-split-layout {
+            display: flex;
+            gap: 24px;
+            align-items: start;
+            /* Importante: Alineación superior para independencia */
+            margin-top: 40px;
+        }
+
+        .faq-column {
+            flex: 1;
+            /* Cada columna ocupa el 50% */
+            display: flex;
+            flex-direction: column;
+            /* Apila verticalmente */
+            gap: 24px;
+            /* Espacio vertical entre tarjetas */
+            min-width: 0;
+            /* Previene desbordes en flexbox */
+        }
+
+        /* Estilos de Tarjeta (Se mantienen igual) */
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .faq-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .faq-item[open] {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.03);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Header del Acordeón */
+        .faq-summary {
+            padding: 20px 24px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .faq-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Icono Izquierdo */
+        .faq-cat-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-item[open] .faq-cat-icon {
+            background: var(--brand-gradient);
+            color: #fff;
+        }
+
+        /* Flecha Derecha */
+        .faq-arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .faq-item[open] .faq-arrow {
+            transform: rotate(180deg);
+            color: var(--accent-cyan);
+        }
+
+        /* Contenido de la Respuesta */
+        .faq-content {
+            padding: 0 24px 24px 75px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            border-top: 1px solid transparent;
+        }
+
+        .faq-item[open] .faq-content {
+            border-top-color: rgba(6, 182, 212, 0.1);
+            padding-top: 16px;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .highlight-txt {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE: Stack vertical en móvil */
+        @media (max-width: 900px) {
+            .faq-split-layout {
+                flex-direction: column;
+                /* Una columna debajo de la otra */
+            }
+
+            .faq-column {
+                width: 100%;
+            }
+
+            .faq-content {
+                padding-left: 24px;
+            }
+        }
+
+        /* --- 11. RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+                /* Stack en pantallas medianas */
+                gap: 30px;
+            }
+
+            .problem-card {
+                border-left: 1px solid var(--border-color);
+                /* Reset border */
+            }
+
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .col-span-2 {
+                grid-column: span 2;
+            }
+
+            .col-span-3 {
+                grid-column: span 2;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .asset-card {
+                grid-template-columns: 1fr;
+            }
+
+            .asset-visual {
+                height: 200px;
+                min-height: 200px;
+                order: -1;
+            }
+
+            .asset-data {
+                padding: 30px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding-top: 40px;
+                /* Alineación en móvil */
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+                /* Tamaño seguro para móvil */
+            }
+
+            .hero p {
+                font-size: 17px;
+                padding: 0 16px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                /* Stacked buttons */
+                gap: 12px;
+                padding: 0 24px;
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-ghost {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .col-span-2,
+            .col-span-3,
+            .row-span-2 {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .bento-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                min-height: auto;
+            }
+
+            .cta-section h2 {
+                font-size: 32px;
+            }
+
+            .cta-card {
+                padding: 40px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .dashboard-nav {
+                justify-content: flex-start;
+                padding-left: 24px;
+            }
+        }
+
+        /* --- ESTILOS BLOQUE SOLUCIONES (DATION REFACTOR) --- */
+
+        /* --- ESTILOS SECTORIAL INTELLIGENCE HUB (DATION 2.0) --- */
+
+        /* Navegación Full-Width (8 Columnas iguales) */
+        .dashboard-nav {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            /* 8 columnas exactas */
+            gap: 8px;
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 0 10px;
+            /* Margen de seguridad */
+        }
+
+        .dash-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 14px 4px;
+            border-radius: 8px;
+            /* Look más técnico/botón */
+            font-size: 11px;
+            /* Ajustado para que quepan todos */
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            /* Icono arriba, texto abajo */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            height: 100%;
+        }
+
+        .dash-pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dash-pill.active {
+            background: var(--brand-gradient);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+            font-weight: 700;
+            transform: translateY(-2px);
+        }
+
+        .dash-pill i {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        /* Contenedor del Asset (Layout) */
+        .dashboard-container {
+            min-height: 450px;
+            /* Altura fija para evitar saltos */
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .asset-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            /* Texto | Simulación */
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+            background: var(--bg-card);
+            z-index: 1;
+        }
+
+        .asset-card.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+            position: relative;
+            /* Para que ocupe espacio real */
+        }
+
+        /* Columna Izquierda: Datos */
+        .asset-data {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .asset-tag {
+            color: var(--accent-cyan);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: inline-block;
+            background: rgba(6, 182, 212, 0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .asset-title {
+            font-size: 28px;
+            line-height: 1.2;
+            margin: 0 0 24px 0;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .tech-stack-list {
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        /* Columna Derecha: Simulación Visual (Dark UI) */
+        .asset-visual-sim {
+            background: #030304;
+            /* Fondo casi negro */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Grid de fondo tipo "Blueprint" */
+        .sim-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        /* Contenedor de gráficos */
+        .sim-graph-container {
+            width: 80%;
+            height: 60%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animaciones Genéricas (Reutilizables) */
+        @keyframes drawLine {
+            from {
+                stroke-dashoffset: 1000;
+            }
+
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes growBar {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+
+            to {
+                height: var(--target-height);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulseDot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Estilos específicos para gráficos SVG */
+        .sim-svg-line {
+            fill: none;
+            stroke: var(--accent-cyan);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            /* La animación se activa vía JS al añadir la clase .active */
+        }
+
+        .asset-card.active .sim-svg-line {
+            animation: drawLine 2s ease-out forwards;
+        }
+
+        /* Etiquetas de Simulación */
+        .sim-label {
+            position: absolute;
+            font-family: monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .sim-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid #10b981;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .dashboard-nav {
+                grid-template-columns: repeat(4, 1fr);
+                /* 2 filas de 4 */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-nav {
+                grid-template-columns: repeat(2, 1fr);
+                /* 4 filas de 2 */
+            }
+
+            .asset-card {
+                grid-template-columns: 1fr;
+                /* Stack vertical */
+                position: relative;
+                height: auto;
+            }
+
+            .asset-visual-sim {
+                height: 250px;
+                /* Altura fija en móvil */
+                order: -1;
+                /* Visual arriba */
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .asset-data {
+                padding: 24px;
+                border-right: none;
+            }
+
+            .asset-title {
+                font-size: 22px;
+            }
+        }
+
+
+        /* Contenedor principal del concepto Decision-Backwards */
+        .sol-concept-banner {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.05) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
             position: relative;
             overflow: hidden;
         }
-        .btn-primary:hover {
-            background: #004569;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 48, 73, 0.3);
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: #003049;
-            border: 2px solid #003049;
-            transition: all 0.3s ease;
-        }
-        .btn-secondary:hover {
-            background: #e0fbf6;
+
+        .sol-concept-text {
+            flex: 1;
+            z-index: 2;
         }
 
-        /* Fix Slider Calculadora */
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 24px; width: 24px; border-radius: 50%;
-            background: #003049; cursor: pointer; margin-top: -8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3); border: 2px solid white;
+        .sol-concept-visual {
+            flex: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--accent-cyan);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
         }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%; height: 8px; cursor: pointer; background: #e0fbf6; border-radius: 999px;
+
+        /* La Tríada de Valor (Grid de 3) */
+        .sol-triad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .sol-triad-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 32px 24px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .sol-triad-card:hover {
+            border-color: var(--accent-indigo);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.15);
+        }
+
+        .sol-icon-box {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sol-triad-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .sol-role-list {
+            margin-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        .sol-role-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .sol-role-highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Timeline del Proceso (Vertical Stepper) */
+        .sol-process-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Línea conectora vertical */
+        .sol-process-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 24px;
+            /* Ajuste para alinear con los iconos */
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
+            z-index: 0;
+        }
+
+        .sol-step {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sol-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .sol-step-marker {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .sol-step-content {
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+        }
+
+        .sol-step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .sol-step-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+        }
+
+        .sol-step-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .sol-step-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .sol-step-outcome {
+            background: rgba(16, 185, 129, 0.05);
+            /* Verde muy sutil */
+            border-left: 2px solid #10b981;
+            padding: 10px 15px;
+            font-size: 14px;
+            color: #d1d5db;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .sol-outcome-label {
+            color: #10b981;
+            font-weight: 700;
+            margin-right: 5px;
+        }
+
+        /* Responsive para el Bloque */
+        @media (max-width: 900px) {
+            .sol-concept-banner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sol-concept-visual {
+                width: 100%;
+                display: none;
+                /* Ocultar visual en móviles para ahorrar espacio */
+            }
+
+            .sol-triad-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body class="bg-brand-gray text-slate-800 antialiased selection:bg-brand-cyan selection:text-brand-dark">
 
-    <!-- NAV -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <img src="https://raw.githubusercontent.com/nicsejara/Dation_Landing/main/Logo.png" alt="Dation Analytics" class="h-10 w-auto">
-                    <span class="font-bold text-xl tracking-tight text-brand-dark">Dation Analytics</span>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#problema" class="text-sm font-medium text-slate-600 hover:text-brand-dark transition-colors">El Problema</a>
-                    <a href="#solucion" class="text-sm font-medium text-slate-600 hover:text-brand-dark transition-colors">Solución</a>
-                    <a href="#metodologia" class="text-sm font-medium text-slate-600 hover:text-brand-dark transition-colors">Metodología</a>
-                    <a href="#calculadora" class="text-sm font-medium text-slate-600 hover:text-brand-dark transition-colors">Calculadora</a>
-                </div>
+<body>
 
-                <!-- CTA -->
-                <div>
-                    <a href="https://dation.notion.site/Dation-analytics-2c31c32259b8806ca002c5f05803a11c" target="_blank" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-bold shadow-md">
-                        Agendar Auditoría
-                    </a>
-                </div>
+    <nav id="NavBar" class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="https://raw.githubusercontent.com/nicsejara/Dation_Landing/main/Logo.png" alt="Dation Logo"
+                    class="logo-img" style="margin-right: 10px;">
+                Dation
+            </a>
+            <div class="nav-links">
+                <a href="#BloqueRetos">Retos</a>
+                <a href="#BloqueSoluciones">Soluciones</a>
+                <a href="#BloqueSector">Sectores</a>
+                <a href="#faq">FAQ</a>
+                <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="btn-ghost"
+                    style="padding: 10px 20px; background: rgba(255,255,255,0.1);">
+                    Agendar cita gratis
+                </a>
             </div>
+            <i class="fas fa-bars mobile-menu-btn"></i>
         </div>
     </nav>
 
-    <!-- 1. HERO SECTION -->
-    <header class="relative pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden bg-white">
-        <!-- Decoración de fondo sutil -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-cyan/10 blur-3xl"></div>
-        
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10 fade-in-section is-visible">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-brand-dark tracking-tight mb-6 leading-tight">
-                Transforma el Caos de Datos en <br class="hidden md:block"/>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-dark to-brand-cyanHover">Rentabilidad Predecible.</span>
+    <section class="hero section-block">
+        <div class="container-centered text-center">
+
+            <div class="badge">
+                <i class="fas fa-brain" style="margin-right: 8px; font-size: 11px;"></i>
+                Desarrollo de decisiones AI-Driven
+            </div>
+
+            <h1>
+                Su negocio no necesita más reportes.<br>
+                <span class="shimmer-text">Necesita decisiones más acertadas.</span>
             </h1>
-            <p class="mt-6 text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-                Centralizamos tus fuentes de información (Marketing, Ventas, Finanzas) en tableros automatizados para que tomes decisiones basadas en dinero real, no en intuición.
+
+            <p>
+                Deje de mirar el pasado en dashboards estáticos que nadie usa. Construimos <strong>Data Decision Assets
+                    (DDA)</strong>: nodos de decisiones AI-Driven que conectan sus datos con el contexto
+                actual para
+                decirle exactamente <strong>qué hacer hoy</strong>.
             </p>
-            
-            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="https://dation.notion.site/Dation-analytics-2c31c32259b8806ca002c5f05803a11c" target="_blank" class="btn-primary px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl">
-                    Agendar Auditoría de Datos
-                    <span class="block text-xs font-normal opacity-80 mt-1">Gratis · 15 minutos</span>
+
+            <div class="hero-actions">
+                <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="btn-primary">
+                    Diagnosticar mis decisiones <i class="fas fa-arrow-right"></i>
+                </a>
+
+                <a href="#BloqueSoluciones" class="btn-ghost" style="border-radius: 99px; padding: 14px 28px;">
+                    Ver cómo funciona un Data Decision Asset
                 </a>
             </div>
+    </section>
 
-            <!-- TRUST BAR (Logos Tech) -->
-            <div class="mt-16 pt-8 border-t border-slate-100">
-                <p class="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6">Tecnologías que integramos</p>
-                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                    <!-- SVG Logos (Inline for performance) -->
-                    <!-- Excel -->
-                    <svg class="h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M21.17 3.25Q21.5 3.25 21.76 3.5 22 3.74 22 4.08V19.92Q22 20.26 21.76 20.5 21.5 20.75 21.17 20.75H7.83Q7.5 20.75 7.24 20.5 7 20.26 7 19.92V17H2.83Q2.5 17 2.24 16.76 2 16.5 2 16.17V7.83Q2 7.5 2.24 7.24 2.5 7 2.83 7H7V4.08Q7 3.74 7.24 3.5 7.5 3.25 7.83 3.25M7 13.06L8.18 15.28H7V13.06M7 10.94V8.72H8.18L7 10.94M12.08 17.45H14.35L15.46 15.35L16.63 17.45H18.9L16.56 13.63L18.8 9.9H16.53L15.43 11.9L14.3 9.9H12.04L14.33 13.6L12.08 17.45Z" /></svg>
-                    <!-- Google -->
-                    <svg class="h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                    <!-- Python -->
-                    <svg class="h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-2.5l-.05-.28-.1-.26-.14-.23-.2-.19-.23-.16-.27-.12-.3-.07-.31-.03H9.17l-.29.03-.28.07-.26.12-.23.16-.2.19-.14.23-.1.26-.05.28H4.25l.02-.37.06-.37.12-.38.18-.38.25-.38.31-.38.38-.37.45-.37.51-.38.58-.39.64-.39.71-.39.88-.22.95-.14 1.03-.06h2.1l1.03.06.96.14.88.22.71.39.65.39zM8.72 12.5l-.23.04-.24.1-.21.15-.17.21-.11.26-.04.3.04.3.11.26.17.21.21.15.24.1.23.04.22-.04.24-.1.21-.15.17-.21.11-.26.04-.3-.04-.3-.11-.26-.17-.21-.21-.15-.24-.1z"/></svg>
-                    <!-- Shopify -->
-                    <svg class="h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M22.5 7.5L20 2L3.5 2.5L2 7.5L3.5 10L3 22L12 24L21 22L20.5 10L22.5 7.5ZM12 19L5 20.5L6 10L12 12L18 10L19 20.5L12 19Z"/></svg>
-                    <!-- Generic DB (SQL) -->
-                    <svg class="h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.58 3 4 4.79 4 7C4 9.21 7.58 11 12 11C16.42 11 20 9.21 20 7C20 4.79 16.42 3 12 3M4 9V12C4 14.21 7.58 16 12 16C16.42 16 20 14.21 20 12V9C20 11.21 16.42 13 12 13C7.58 13 4 11.21 4 9M4 14V17C4 19.21 7.58 21 12 21C16.42 21 20 19.21 20 17V14C20 16.21 16.42 18 12 18C7.58 18 4 16.21 4 14Z"/></svg>
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
+
+    <section id="BloqueRetos" class="problem-section section-block" style="border: none;">
+        <div class="container-centered">
+            <div class="text-center" style="margin-bottom: 50px;">
+                <span
+                    style="color: #ef4444; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;">
+                    Por qué fracasan las empresas que "tienen datos"
+                </span>
+                <h2 style="font-size: 28px; color: #fff; margin-top: 10px;">
+                    No es mala suerte. Es el costo de decidir a ciegas.
+                </h2>
+            </div>
+
+            <div class="problem-grid">
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-camera-retro problem-icon"></i>
+                        <h3>El síndrome de Kodak</h3>
+                    </div>
+
+                    <div class="case-study-box">
+                        <span class="case-label">El Caso:</span>
+                        Kodak inventó la cámara digital, pero el miedo a canibalizar su negocio de carretes los llevó a
+                        la bancarrota.
+                    </div>
+
+                    <p class="problem-pain">
+                        La innovación no espera. Si su estructura de decisiones sigue anclada en herramientas del siglo
+                        pasado por miedo al cambio, <span class="pain-highlight">está financiando su propia
+                            obsolescencia</span> mientras su competencia se vuelve AI-Driven.
+                    </p>
                 </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-store-slash problem-icon"></i>
+                        <h3>El colapso de Toys "R" Us</h3>
+                    </div>
+
+                    <div class="case-study-box">
+                        <span class="case-label">El Caso:</span>
+                        Una deuda masiva mal gestionada y la falta de visión en márgenes digitales asfixiaron su
+                        liquidez hasta el cierre.
+                    </div>
+
+                    <p class="problem-pain">
+                        La mala gestión financiera no es el problema, es el síntoma. Sin visibilidad en tiempo real de
+                        sus márgenes y flujo de caja, <span class="pain-highlight">su liquidez se evapora en decisiones
+                            reactivas</span>. Usted no tiene un problema de dinero, tiene un problema de visibilidad.
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-film problem-icon"></i>
+                        <h3>El error de Blockbuster</h3>
+                    </div>
+
+                    <div class="case-study-box">
+                        <span class="case-label">El Caso:</span>
+                        Tuvieron la oportunidad de comprar Netflix por 50 millones y la rechazaron por no entender hacia
+                        dónde iba el mercado.
+                    </div>
+
+                    <p class="problem-pain">
+                        Ignorar las señales del mercado es ceder su futuro al mejor postor. Cuando usted no procesa
+                        datos de contexto externo, pierde la capacidad de pivotar. <span class="pain-highlight">No deje
+                            que su éxito pasado lo ciegue</span> ante la disrupción que viene hoy.
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-header">
+                        <i class="fas fa-boxes-packing problem-icon"></i>
+                        <h3>El desastre de Target Canada</h3>
+                    </div>
+
+                    <div class="case-study-box">
+                        <span class="case-label">El Caso:</span>
+                        Fracasaron y cerraron 133 tiendas en 2 años porque sus datos logísticos tenían errores:
+                        estanterías vacías, depósitos llenos.
+                    </div>
+
+                    <p class="problem-pain">
+                        Tomar decisiones sobre datos inexactos es construir sobre arena. Los errores de carga manual
+                        generan un caos administrativo que destruye la cultura. La falta de información confiable es
+                        <span class="pain-highlight">la forma más rápida de quebrar una operación sana</span>.
+                    </p>
+                </div>
+
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- 2. EL PROBLEMA (Identification) -->
-    <section id="problema" class="py-20 bg-brand-gray border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-16 fade-in-section">
-                <h2 class="text-brand-dark font-bold uppercase tracking-wide text-sm mb-2 opacity-70">Diagnóstico</h2>
-                <h3 class="text-3xl md:text-4xl font-bold text-brand-dark">El costo oculto de operar a ciegas</h3>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">No es solo "desorden". Es dinero que estás dejando sobre la mesa todos los días.</p>
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
+
+    <section id="BloqueSoluciones" class="section-block">
+        <div class="container-centered">
+
+            <div class="section-header">
+                <span class="section-subtitle">Ingeniería de Resultados</span>
+                <h2>No construimos tableros.<br>Diseñamos Activos que Ejecutan.</h2>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-card hover:shadow-lg transition-shadow fade-in-section border-t-4 border-red-500">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6 text-2xl">🔥</div>
-                    <h4 class="text-xl font-bold text-brand-dark mb-3">El Infierno del Excel</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Copiar y pegar manualmente genera errores humanos que te cuestan entre el <strong class="text-red-600">10% y 15%</strong> de tu margen operativo real.
+            <div class="sol-concept-banner">
+                <div class="sol-concept-text">
+                    <h3 style="color: #fff; font-size: 20px; margin-bottom: 10px;">El Paradigma "Decision-Backwards"
+                    </h3>
+                    <p style="color: var(--text-muted); margin-bottom: 0;">
+                        Mientras el mercado le vende reportes que explican el pasado, nosotros aplicamos
+                        <strong>ingeniería inversa</strong>.
+                        No preguntamos "¿Qué datos tiene?", identificamos la <strong>decisión que necesita ganar
+                            hoy</strong> y
+                        construimos el camino hacia atrás para asegurarla.
+                    </p>
+                </div>
+                <div class="assembly-line-container">
+
+                    <div class="input-stack">
+                        <div class="neural-node input">
+                            <div class="node-icon-wrapper"><i class="fas fa-globe"></i></div>
+                            <span class="node-label">Contexto</span>
+                        </div>
+                        <div class="neural-node input">
+                            <div class="node-icon-wrapper"><i class="fas fa-server"></i></div>
+                            <span class="node-label">Datos Int.</span>
+                        </div>
+                    </div>
+
+                    <div class="merger-bracket"></div>
+
+                    <div class="linear-connection step-1">
+                        <div class="pulse-beam"></div>
+                    </div>
+
+                    <div class="neural-node model">
+                        <div class="node-icon-wrapper"><i class="fas fa-project-diagram"></i></div>
+                        <span class="node-label">Modelo</span>
+                    </div>
+
+                    <div class="linear-connection step-2">
+                        <div class="pulse-beam"></div>
+                    </div>
+
+                    <div class="neural-node ai">
+                        <div class="node-icon-wrapper">
+                            <i class="fas fa-brain"></i>
+
+                            <div class="ai-stars">
+                                <svg class="ai-star" viewBox="0 0 24 24">
+                                    <path d="M12,0 Q15,9 24,12 Q15,15 12,24 Q9,15 0,12 Q9,9 12,0 Z" />
+                                </svg>
+                                <svg class="ai-star" viewBox="0 0 24 24">
+                                    <path d="M12,0 Q15,9 24,12 Q15,15 12,24 Q9,15 0,12 Q9,9 12,0 Z" />
+                                </svg>
+                                <svg class="ai-star" viewBox="0 0 24 24">
+                                    <path d="M12,0 Q15,9 24,12 Q15,15 12,24 Q9,15 0,12 Q9,9 12,0 Z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="node-label">Optimización</span>
+                    </div>
+
+                    <div class="linear-connection step-3">
+                        <div class="pulse-beam"></div>
+                    </div>
+
+                    <div class="neural-node decision">
+                        <div class="node-icon-wrapper"><i class="fas fa-check"></i></div>
+                        <span class="node-label">Decisión</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sol-triad-grid">
+
+                <div class="sol-triad-card">
+                    <div class="sol-icon-box" style="color: var(--accent-cyan);">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <span class="sol-triad-title">1. Contexto Híbrido</span>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
+                        Un activo que no mira solo hacia adentro. Fusionamos sus silos operativos (ERP/CRM) con señales
+                        externas de mercado para que decida en el mundo real.
                     </p>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-card hover:shadow-lg transition-shadow fade-in-section border-t-4 border-orange-400">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6 text-2xl">📉</div>
-                    <h4 class="text-xl font-bold text-brand-dark mb-3">Datos Caducados</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Tomas decisiones hoy con reportes de hace dos semanas. Eso no es dirigir una empresa, es <strong class="text-orange-600">reaccionar al pasado</strong>.
+                <div class="sol-triad-card">
+                    <div class="sol-icon-box" style="color: var(--accent-indigo);">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <span class="sol-triad-title">2. Arquitectura de Certeza</span>
+                    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
+                        Sustituimos la intuición por un flujo de capital intelectual. Desde la ingesta automatizada
+                        hasta la recomendación prescriptiva.
                     </p>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-card hover:shadow-lg transition-shadow fade-in-section border-t-4 border-brand-dark">
-                    <div class="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center mb-6 text-2xl">🧱</div>
-                    <h4 class="text-xl font-bold text-brand-dark mb-3">Silos de Información</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Marketing no sabe lo que hace Ventas, y Finanzas no entiende el ROI. Departamentos desconectados = <strong class="text-brand-dark">Estrategia fallida</strong>.
+                <div class="sol-triad-card">
+                    <div class="sol-icon-box" style="color: var(--color-retail);">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <span class="sol-triad-title">3. Modelado por Rol</span>
+                    <div class="sol-role-list">
+                        <div class="sol-role-item">
+                            <span>C-Level</span>
+                            <span class="sol-role-highlight">Visión & Estrategia</span>
+                        </div>
+                        <div class="sol-role-item">
+                            <span>Gerencia</span>
+                            <span class="sol-role-highlight">Táctica & Margen</span>
+                        </div>
+                        <div class="sol-role-item">
+                            <span>Operación</span>
+                            <span class="sol-role-highlight">Ejecución & Speed</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center" style="margin-bottom: 50px;">
+                <h3 style="color: #fff; font-size: 24px;">Metodología "Plug & Decide"</h3>
+                <p style="color: var(--text-muted);">Semanas de implementación, no años de consultoría.</p>
+            </div>
+
+            <div class="sol-process-container">
+
+                <div class="sol-step">
+                    <div class="sol-step-marker">01</div>
+                    <div class="sol-step-content">
+                        <div class="sol-step-header">
+                            <h4 class="sol-step-title">Auditoría de Decisiones</h4>
+                            <span class="sol-step-tag">The Discovery</span>
+                        </div>
+                        <p class="sol-step-desc">
+                            Mapeamos su calendario crítico. No atacamos todo el caos de datos, solo identificamos los
+                            nodos donde la falta de información le cuesta dinero hoy.
+                        </p>
+                        <div class="sol-step-outcome">
+                            <span class="sol-outcome-label">Outcome:</span> Inventario de decisiones priorizado por
+                            impacto en caja.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sol-step">
+                    <div class="sol-step-marker">02</div>
+                    <div class="sol-step-content">
+                        <div class="sol-step-header">
+                            <h4 class="sol-step-title">Arquitectura del Pod</h4>
+                            <span class="sol-step-tag">The Blueprint</span>
+                        </div>
+                        <p class="sol-step-desc">
+                            Diseñamos el "Pod" modular que conecta sus sistemas internos con el contexto externo.
+                            Infraestructura finalista, sin deuda técnica.
+                        </p>
+                        <div class="sol-step-outcome">
+                            <span class="sol-outcome-label">Outcome:</span> Data Pipeline automatizado y robusto.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sol-step">
+                    <div class="sol-step-marker">03</div>
+                    <div class="sol-step-content">
+                        <div class="sol-step-header">
+                            <h4 class="sol-step-title">Motor de IA Prescriptiva</h4>
+                            <span class="sol-step-tag">The Intelligence</span>
+                        </div>
+                        <p class="sol-step-desc">
+                            Entrenamos el motor para análisis de escenarios "What-if". El sistema deja de mostrar
+                            gráficos pasivos y empieza a sugerir acciones justificadas.
+                        </p>
+                        <div class="sol-step-outcome">
+                            <span class="sol-outcome-label">Outcome:</span> Recomendaciones de negocio en tiempo real.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sol-step">
+                    <div class="sol-step-marker" style="background: var(--brand-gradient); color: #fff; border: none;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="sol-step-content" style="border-color: var(--accent-indigo);">
+                        <div class="sol-step-header">
+                            <h4 class="sol-step-title">Ejecución y Activo</h4>
+                            <span class="sol-step-tag"
+                                style="background: rgba(99,102,241,0.2); border:none; color: #fff;">The Action</span>
+                        </div>
+                        <p class="sol-step-desc">
+                            Entrega de interfaces de acción y plan de calibración. Usted recibe un activo de propiedad
+                            intelectual que crece con su empresa.
+                        </p>
+                        <div class="sol-step-outcome">
+                            <span class="sol-outcome-label">Outcome:</span> Escalabilidad y reducción total de
+                            incertidumbre.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
+
+    <section id="BloqueSector" class="section-block">
+        <div class="container-centered">
+
+            <div class="section-header">
+                <span class="section-subtitle">Impacto Sectorial</span>
+                <h2 style="font-size: 36px; margin-top: 10px; font-weight: 700;">Data Assets de Alto Valor</h2>
+                <p>Seleccione su industria para ver la decisión crítica que resolvemos.</p>
+            </div>
+
+            <div class="dashboard-nav">
+                <button class="dash-pill active" onclick="switchIndustry('finanzas')">
+                    <i class="fas fa-coins"></i> Finanzas
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('logistica')">
+                    <i class="fas fa-truck-fast"></i> Logística
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('manufactura')">
+                    <i class="fas fa-industry"></i> Industria
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('agro')">
+                    <i class="fas fa-seedling"></i> Agro
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('oilgas')">
+                    <i class="fas fa-oil-well"></i> Oil & Gas
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('salud')">
+                    <i class="fas fa-heart-pulse"></i> Salud
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('retail')">
+                    <i class="fas fa-tags"></i> Retail
+                </button>
+                <button class="dash-pill" onclick="switchIndustry('marketing')">
+                    <i class="fas fa-bullhorn"></i> Marketing
+                </button>
+            </div>
+
+            <div class="dashboard-container">
+
+                <div id="panel-finanzas" class="asset-card active">
+                    <div class="asset-data">
+                        <span class="asset-tag">Tesorería & Gestión de Riesgo</span>
+                        <h3 class="asset-title">Timing de Cobertura (Hedging)</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Proyección de Flujo de Caja
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Volatilidad VIX en Tiempo Real
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Simulación Montecarlo
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">Maximización de Margen</span>
+                            <p class="kpi-desc">Reducción de pérdidas cambiarias por ejecución oportuna.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Auditar mi riesgo financiero <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">STATUS: OPTIMIZED</div>
+                        <div class="sim-graph-container"
+                            style="display: flex; align-items: flex-end; justify-content: center;">
+                            <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                <path d="M0,100 Q50,50 100,80 T200,40 T300,60" fill="none" stroke="#333"
+                                    stroke-width="1" />
+                                <path d="M0,100 Q70,120 150,90 T300,110" fill="none" stroke="#333" stroke-width="1" />
+                                <path class="sim-svg-line" d="M0,100 Q80,20 160,50 T300,10" />
+                            </svg>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px; left: 20px;">EXPOSICIÓN DE MERCADO</span>
+                    </div>
+                </div>
+
+                <div id="panel-logistica" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Supply Chain Tower</span>
+                        <h3 class="asset-title">Optimización de Rutas Dinámicas</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>GPS Flota + Clima en Vivo
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Cálculo de TCO cada 15 min
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Detección de Disrupciones
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">Garantía de SLA</span>
+                            <p class="kpi-desc">Entrega a tiempo bajo condiciones de incertidumbre.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Optimizar mi flota <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">REROUTING...</div>
+                        <div class="sim-graph-container" style="position: relative;">
+                            <div
+                                style="position: absolute; top: 20%; left: 10%; width: 10px; height: 10px; background: #fff; border-radius: 50%;">
+                            </div>
+                            <div
+                                style="position: absolute; top: 80%; left: 40%; width: 10px; height: 10px; background: #ef4444; border-radius: 50%;">
+                            </div>
+                            <div
+                                style="position: absolute; top: 30%; right: 10%; width: 10px; height: 10px; background: #10b981; border-radius: 50%;">
+                            </div> <svg width="100%" height="100%" style="position: absolute; top:0; left:0;">
+                                <line x1="10%" y1="20%" x2="40%" y2="80%" stroke="#ef4444" stroke-width="2"
+                                    stroke-dasharray="5,5" opacity="0.5" />
+                                <path class="sim-svg-line" d="M30,30 Q150,10 270,45" fill="none" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-manufactura" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Industria 4.0</span>
+                        <h3 class="asset-title">Eficiencia Energética (OEE)</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Sensores IoT en Maquinaria
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Costo Energético Spot
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Backlog de Pedidos
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">+ Margen Bruto / Unidad</span>
+                            <p class="kpi-desc">Producción en turnos de menor costo energético.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Diagnosticar planta <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">ENERGY: LOW COST</div>
+                        <div class="sim-graph-container"
+                            style="display: flex; align-items: flex-end; justify-content: space-around; gap: 20px;">
+                            <div style="width: 40px; background: #333; height: 40%; border-radius: 4px 4px 0 0;"></div>
+                            <div style="width: 40px; background: #333; height: 60%; border-radius: 4px 4px 0 0;"></div>
+                            <div
+                                style="width: 40px; background: var(--accent-cyan); height: 90%; border-radius: 4px 4px 0 0; box-shadow: 0 0 20px rgba(6,182,212,0.4); animation: floatUp 1s ease-out;">
+                            </div>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px;">PRODUCCIÓN VS COSTO KWH</span>
+                    </div>
+                </div>
+
+                <div id="panel-agro" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">AgriTech Intelligence</span>
+                        <h3 class="asset-title">Decisión de Cosecha</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Ventanas Climáticas Locales
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Precios Chicago/Rosario
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Logística de Acopio
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">Max. Valor / Hectárea</span>
+                            <p class="kpi-desc">Arbitraje entre riesgo climático y precio de venta.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Ver hoja de ruta agro <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">HARVEST: GO</div>
+                        <div class="sim-graph-container"
+                            style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px;">
+                            <div style="background: #10b981; opacity: 0.3;"></div>
+                            <div style="background: #10b981; opacity: 0.5;"></div>
+                            <div style="background: #10b981; opacity: 0.8;"></div>
+                            <div style="background: #10b981; opacity: 0.4;"></div>
+                            <div style="background: #10b981; opacity: 0.2;"></div>
+                            <div style="background: #10b981; opacity: 0.6;"></div>
+                            <div style="background: #10b981; opacity: 0.9;"></div>
+                            <div style="background: #10b981; opacity: 1;"></div>
+                            <div style="background: #10b981; opacity: 0.7;"></div>
+                            <div style="background: #10b981; opacity: 0.3;"></div>
+                            <div style="background: #10b981; opacity: 0.4;"></div>
+                            <div style="background: #10b981; opacity: 0.8;"></div>
+                            <div style="background: #eab308; opacity: 1;"></div>
+                            <div style="background: #10b981; opacity: 0.6;"></div>
+                            <div style="background: #10b981; opacity: 0.4;"></div>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px;">RENDIMIENTO GEORREFERENCIADO</span>
+                    </div>
+                </div>
+
+                <div id="panel-oilgas" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Asset Integrity</span>
+                        <h3 class="asset-title">Presión de Extracción Óptima</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Curvas de Declinación
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Futuros Brent/WTI
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Integridad de Pozo
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">+ VPN de Reservas</span>
+                            <p class="kpi-desc">Extensión de vida útil del activo sin frenar caja.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Auditar pozo <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge" style="border-color: #f59e0b; color: #f59e0b;">PRESSURE: STABLE</div>
+                        <div class="sim-graph-container">
+                            <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                <line x1="0" y1="30" x2="300" y2="30" stroke="#ef4444" stroke-width="1"
+                                    stroke-dasharray="4,4" />
+                                <path class="sim-svg-line" d="M0,140 C100,100 150,50 300,50" stroke="#f59e0b" />
+                            </svg>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px;">EXTRACCIÓN VS INTEGRIDAD</span>
+                    </div>
+                </div>
+
+                <div id="panel-salud" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Healthcare Ops</span>
+                        <h3 class="asset-title">Asignación de Staff Predictiva</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Epidemiología Regional
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Ocupación de Camas Vivo
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Alertas Climáticas
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">- Costo Operativo/Paciente</span>
+                            <p class="kpi-desc">Evitar sobrecostos de guardia y cuellos de botella.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Optimizar guardia <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">STAFF: MATCHED</div>
+                        <div class="sim-graph-container"
+                            style="display: flex; flex-direction: column; justify-content: center; gap: 15px;">
+                            <div
+                                style="width: 100%; height: 20px; background: #333; border-radius: 10px; overflow: hidden; position: relative;">
+                                <div style="position: absolute; left: 10px; top: 2px; font-size: 9px; z-index: 2;">
+                                    DEMANDA PACIENTES</div>
+                                <div
+                                    style="width: 80%; height: 100%; background: #ef4444; animation: growBar 1s ease-out forwards; --target-height: 100%;">
+                                </div>
+                            </div>
+                            <div
+                                style="width: 100%; height: 20px; background: #333; border-radius: 10px; overflow: hidden; position: relative;">
+                                <div style="position: absolute; left: 10px; top: 2px; font-size: 9px; z-index: 2;">
+                                    PERSONAL ACTIVO</div>
+                                <div
+                                    style="width: 82%; height: 100%; background: #10b981; animation: growBar 1.2s ease-out forwards; --target-height: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-retail" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Smart Pricing</span>
+                        <h3 class="asset-title">Descuento Dinámico (Markdown)</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Elasticidad de Precio
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Scraping Competencia
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Stock vs Caducidad
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">Incremento GMROI</span>
+                            <p class="kpi-desc">Liquidar stock sin destruir el margen de marca.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Ver estrategia pricing <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">DISCOUNT: 12%</div>
+                        <div class="sim-graph-container">
+                            <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                <path d="M0,150 L0,80 Q150,40 300,100 L300,150 Z" fill="rgba(99, 102, 241, 0.2)" />
+                                <path class="sim-svg-line" d="M0,80 Q150,40 300,100" stroke="#6366f1" />
+                            </svg>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px;">PRECIO VS VOLUMEN</span>
+                    </div>
+                </div>
+
+                <div id="panel-marketing" class="asset-card">
+                    <div class="asset-data">
+                        <span class="asset-tag">Growth Analytics</span>
+                        <h3 class="asset-title">Asignación de Presupuesto (ROAS)</h3>
+                        <div class="tech-stack-list">
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Atribución Multi-Touch
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Predicción de CLV
+                            </div>
+                            <div class="tech-item">
+                                <div class="tech-dot"></div>Variación de CPM
+                            </div>
+                        </div>
+                        <div class="kpi-box">
+                            <span class="kpi-value">- Costo Adquisición (CAC)</span>
+                            <p class="kpi-desc">Inyectar presupuesto donde la conversión es más probable.</p>
+                        </div>
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="asset-link">
+                            Optimizar inversión <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="asset-visual-sim">
+                        <div class="sim-grid-bg"></div>
+                        <div class="sim-badge">CHANNEL: META ADS</div>
+                        <div class="sim-graph-container"
+                            style="display: flex; justify-content: center; align-items: center;">
+                            <div
+                                style="width: 100px; height: 100px; border: 2px solid #333; border-radius: 50%; position: relative; display: flex; justify-content: center; align-items: center;">
+                                <div style="width: 70px; height: 70px; border: 2px solid #333; border-radius: 50%;">
+                                </div>
+                                <div
+                                    style="width: 40px; height: 40px; background: var(--accent-cyan); border-radius: 50%; box-shadow: 0 0 20px rgba(6,182,212,0.5); animation: pulseDot 2s infinite;">
+                                </div>
+                            </div>
+                        </div>
+                        <span class="sim-label" style="bottom: 10px;">CONVERSIÓN PROBABILÍSTICA</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
+
+    <section id="faq" class="section-block">
+        <div class="container-centered">
+
+            <div class="section-header text-center">
+                <span class="section-subtitle" style="color: var(--accent-cyan);">Certeza Técnica y de Negocio</span>
+                <h2 style="font-size: 32px; color: #fff; margin-top: 10px;">
+                    El riesgo de decidir a ciegas termina aquí.
+                </h2>
+                <p style="color: var(--text-muted);">Respuestas directas para líderes que valoran su capital.</p>
+            </div>
+
+            <div class="faq-split-layout">
+
+                <div class="faq-column">
+
+                    <details class="faq-item" open>
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-chart-line"></i></div>
+                            <span>¿Por qué invertir en un Asset vs. un freelancer de BI?</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            El BI tradicional es un "espejo retrovisor": le dice qué pasó, pero lo obliga a adivinar el
+                            porqué.
+                            Nosotros construimos una <strong>Arquitectura de Certeza</strong>. Si el Asset reduce su
+                            error operativo
+                            en apenas un 2%, se paga solo en el primer trimestre.
+                            Usted no compra gráficos, compra un <span class="highlight-txt">seguro de margen</span>.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-shield-halved"></i></div>
+                            <span>Mis datos están desordenados y son confidenciales</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            No limpiamos todo su "lago de datos", solo los puntos críticos (Aislamiento de Nodos).
+                            Sobre la seguridad: trabajamos con <strong>Silos Inteligentes</strong>. Su "Secret Sauce"
+                            jamás sale de sus servidores;
+                            nuestro motor solo inyecta contexto de mercado externo para mejorar su precisión.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-clock"></i></div>
+                            <span>¿Cuánto tiempo real de mi equipo requiere esto?</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            Solo <strong>4 horas</strong> del dueño de la decisión. Nuestra metodología de
+                            <em>Ingeniería Inversa</em>
+                            nos permite mapear el impacto financiero rápidamente. Nosotros hacemos la ingeniería pesada.
+                            Su equipo deja de limpiar Excels para empezar a <span class="highlight-txt">ejecutar
+                                estrategias</span>.
+                        </div>
+                    </details>
+
+                </div>
+
+                <div class="faq-column">
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-users"></i></div>
+                            <span>¿Y si mis gerentes no usan la herramienta?</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            La gente no ignora lo que le ayuda a ganar su bono. Un DDA entrega una
+                            <strong>Recomendación Prescriptiva</strong> ("Haga X para ganar Y"). Cuando la adopción
+                            elimina la
+                            fricción de decidir y mejora los resultados, el cambio cultural es orgánico.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-key"></i></div>
+                            <span>¿Quedo atado a Dation para siempre?</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            Absolutamente no. Usted compra <strong>Propiedad Intelectual</strong>. Entregamos código
+                            fuente,
+                            documentación y llaves. El activo es 100% suyo. Nos contrata para construir el motor
+                            Ferrari,
+                            no para alquilarlo. Usted tiene el control total.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">
+                            <div class="faq-cat-icon"><i class="fas fa-layer-group"></i></div>
+                            <span>¿El activo escala si mi negocio crece?</span>
+                            <i class="fas fa-chevron-down faq-arrow"></i>
+                        </summary>
+                        <div class="faq-content">
+                            Los DDA son modulares. Al resolver el primer "Nudo de Decisión", dejamos una infraestructura
+                            limpia.
+                            Conectar la siguiente área es un <span class="highlight-txt">40% más rápido</span> porque
+                            los rieles de datos ya están puestos.
+                            Su activo se vuelve más inteligente con el tiempo.
+                        </div>
+                    </details>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
+
+    <section id="contacto" class="cta-section section-block" style="border: none;">
+        <div class="container-centered">
+            <div class="cta-card">
+                <div class="cta-glow"></div>
+                <div class="cta-content">
+                    <h2>
+                        Su competencia ya está tomando<br>decisiones basadas en datos.<br>
+                        <span style="color: #fff;">¿Y usted?</span>
+                    </h2>
+                    <p>
+                        Deje de navegar en la incertidumbre. Agende una <strong>Sesión de Diagnóstico de Activos de
+                            Datos</strong>. En 30 minutos identificaremos sus cuellos de botella informativos y
+                        trazaremos una hoja de ruta técnica para rentabilizar su operación.
                     </p>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                        <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="btn-primary"
+                            style="padding: 16px 40px; font-size: 18px;">
+                            Agendar cita gratis <i class="fas fa-calendar-check"></i>
+                        </a>
+                        <span class="cta-microcopy"><i class="fas fa-lock"
+                                style="font-size: 10px; margin-right: 5px;"></i> Sin compromiso comercial. Solo valor
+                            técnico puro.</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 3. LA SOLUCIÓN (The Reveal & Demo) -->
-    <section id="solucion" class="py-24 bg-brand-dark text-white overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                
-                <!-- Left: Text & Checklist -->
-                <div class="fade-in-section">
-                    <h2 class="text-brand-cyan font-bold uppercase tracking-wide text-sm mb-2">Nuestra Propuesta</h2>
-                    <h3 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">Tu negocio, en una sola <br><span class="text-brand-cyan">"Torre de Control"</span></h3>
-                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">
-                        No te entregamos un archivo estático. Te construimos un sistema de inteligencia de negocios que trabaja 24/7 por ti.
-                    </p>
+    <div class="tech-divider-container">
+        <div class="tech-divider"></div>
+    </div>
 
-                    <ul class="space-y-4 mb-10">
-                        <li class="flex items-center">
-                            <span class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan mr-3">✓</span>
-                            <span class="text-slate-200 text-lg">Actualización en tiempo real (Adiós F5)</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan mr-3">✓</span>
-                            <span class="text-slate-200 text-lg">Unificación total (Ads + CRM + Banco)</span>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="w-6 h-6 rounded-full bg-brand-cyan/20 flex items-center justify-center text-brand-cyan mr-3">✓</span>
-                            <span class="text-slate-200 text-lg">Alertas automáticas de anomalías</span>
-                        </li>
-                    </ul>
-                    
-                    <a href="https://dation.notion.site/Dation-analytics-2c31c32259b8806ca002c5f05803a11c" target="_blank" class="inline-flex items-center text-brand-cyan font-bold hover:text-white transition-colors">
-                        Ver cómo funciona el sistema
-                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+    <footer id="Footer" class="footer">
+        <div class="container-centered">
+
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="#" class="logo"
+                        style="display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; color: #fff; text-decoration: none;">
+                        <img src="https://raw.githubusercontent.com/nicsejara/Dation_Landing/main/Logo.png"
+                            alt="Dation Logo" class="logo-img">
+                        Dation
                     </a>
+                    <p style="margin-top: 20px;">
+                        Transformamos la incertidumbre en capital intelectual. Ingeniería de decisión para empresas que
+                        no dejan nada al azar.
+                    </p>
                 </div>
 
-                <!-- Right: Visual (Dashboard Interactivo) -->
-                <!-- Aquí integramos el dashboard Chart.js como representación visual de la "Torre de Control" -->
-                <div class="fade-in-section delay-200">
-                    <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 shadow-2xl relative">
-                        <!-- Header Simulado de Dashboard -->
-                        <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
-                            <div class="flex gap-2">
-                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                            </div>
-                            <div class="text-xs font-mono text-brand-cyan">LIVE DATA STREAM ●</div>
-                        </div>
-
-                        <!-- KPIs Rápidos -->
-                        <div class="grid grid-cols-3 gap-4 mb-6">
-                            <div class="bg-white/5 rounded-lg p-3 text-center cursor-pointer hover:bg-white/10 transition" onclick="updateChartData('revenue')">
-                                <div class="text-xs text-slate-400">Ingresos</div>
-                                <div class="text-lg font-bold text-white">$1.2M</div>
-                            </div>
-                            <div class="bg-white/5 rounded-lg p-3 text-center cursor-pointer hover:bg-white/10 transition" onclick="updateChartData('profit')">
-                                <div class="text-xs text-slate-400">Margen</div>
-                                <div class="text-lg font-bold text-brand-cyan">24%</div>
-                            </div>
-                            <div class="bg-white/5 rounded-lg p-3 text-center cursor-pointer hover:bg-white/10 transition" onclick="updateChartData('cac')">
-                                <div class="text-xs text-slate-400">CAC</div>
-                                <div class="text-lg font-bold text-pink-400">$45</div>
-                            </div>
-                        </div>
-
-                        <!-- Chart Container -->
-                        <div class="chart-container w-full h-64">
-                            <canvas id="mainMetricsChart"></canvas>
-                        </div>
-                        
-                        <div class="mt-4 text-center text-xs text-slate-500">
-                            * Haz clic en los KPIs de arriba para interactuar
-                        </div>
-                    </div>
+                <div class="footer-col">
+                    <h5>Soluciones</h5>
+                    <ul>
+                        <li><a href="#BloqueSoluciones">Decision Data Assets (DDA)</a></li>
+                        <li><a href="#BloqueSector">Data Strategy & Governance</a></li>
+                        <li><a href="#BloqueSector">AI & Predictive Models</a></li>
+                        <li><a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9">Decision Audit (Discovery)</a></li>
+                    </ul>
                 </div>
 
-            </div>
-        </div>
-    </section>
+                <div class="footer-col">
+                    <h5>Empresa</h5>
+                    <ul>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Casos de Estudio</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Términos de Servicio</a></li>
+                    </ul>
+                </div>
 
-    <!-- 4. CALCULADORA (Lead Magnet Intermedio) -->
-    <section id="calculadora" class="py-20 bg-brand-light border-b border-slate-200">
-        <div class="max-w-4xl mx-auto px-4 text-center mb-10 fade-in-section">
-            <h2 class="text-brand-dark text-2xl font-bold mb-2">¿Cuánto te cuesta la ineficiencia?</h2>
-            <p class="text-slate-600">Calcula el ROI potencial de automatizar tus reportes hoy mismo.</p>
-        </div>
+                <div class="footer-col">
+                    <h5>Contacto</h5>
 
-        <div class="max-w-5xl mx-auto px-4 fade-in-section">
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-brand-cyan/20">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
                         <div>
-                            <label class="block text-sm font-semibold text-brand-dark mb-2">Horas semanales dedicadas a reportes:</label>
-                            <input type="range" id="hoursInput" min="1" max="40" value="10" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer" oninput="calculateROI()">
-                            <div class="flex justify-between text-xs text-slate-500 mt-2">
-                                <span>1h</span>
-                                <span id="hoursDisplay" class="font-bold text-brand-dark text-lg">10h</span>
-                                <span>40h</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-brand-dark mb-2">Personas involucradas:</label>
-                            <div class="flex gap-2">
-                                <button onclick="setPeople(1)" class="people-btn flex-1 py-3 bg-brand-dark text-white rounded-lg text-sm font-medium transition-all shadow-md" data-val="1">1</button>
-                                <button onclick="setPeople(2)" class="people-btn flex-1 py-3 bg-white text-slate-600 border border-slate-200 rounded-lg text-sm font-medium hover:bg-brand-light transition-all" data-val="2">2</button>
-                                <button onclick="setPeople(3)" class="people-btn flex-1 py-3 bg-white text-slate-600 border border-slate-200 rounded-lg text-sm font-medium hover:bg-brand-light transition-all" data-val="3">3+</button>
-                            </div>
+                            <span style="display: block; font-size: 12px; opacity: 0.6;">Hablemos de negocios:</span>
+                            <a href="mailto:hola@dation.io">hola@dation.io</a>
                         </div>
                     </div>
 
-                    <div class="bg-brand-dark p-8 rounded-xl text-center text-white relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-cyan opacity-10 rounded-full -mr-10 -mt-10"></div>
-                        <p class="text-sm text-brand-cyan mb-1 font-medium tracking-wide uppercase">Dinero perdido anualmente</p>
-                        <p id="costDisplay" class="text-4xl font-extrabold text-white tracking-tight">$15,600</p>
-                        <p class="text-xs text-slate-400 mt-4">*Basado en costo operativo promedio ($30/h)</p>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>
+                            Córdoba Capital, Argentina.<br>
+                            <span style="font-size: 12px; opacity: 0.6;">Operando Globalmente.</span> 🇦🇷
+                        </span>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-btn" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-btn" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 5. METODOLOGÍA (Process) -->
-    <section id="metodologia" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-16 fade-in-section">
-                <h2 class="text-brand-dark font-bold uppercase tracking-wide text-sm mb-2 opacity-70">El Proceso</h2>
-                <h3 class="text-3xl font-bold text-brand-dark">De la oscuridad a la claridad en 4 semanas</h3>
             </div>
 
-            <div class="relative">
-                <!-- Línea conectora (Desktop) -->
-                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 z-0"></div>
-
-                <div class="grid md:grid-cols-3 gap-8 relative z-10">
-                    <!-- Step 1 -->
-                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center fade-in-section">
-                        <div class="w-16 h-16 bg-brand-dark text-brand-cyan rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-4 shadow-lg border-4 border-white">1</div>
-                        <h4 class="font-bold text-lg text-brand-dark">Auditoría Forense</h4>
-                        <p class="text-xs font-semibold text-brand-cyan uppercase tracking-wide mb-2">Semana 1</p>
-                        <p class="text-slate-600 text-sm">Revisamos la salud de tus datos actuales. Identificamos fugas y definimos KPIs reales.</p>
-                    </div>
-
-                    <!-- Step 2 -->
-                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center fade-in-section delay-100">
-                        <div class="w-16 h-16 bg-brand-dark text-white rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-4 shadow-lg border-4 border-white">2</div>
-                        <h4 class="font-bold text-lg text-brand-dark">Ingeniería de Datos</h4>
-                        <p class="text-xs font-semibold text-brand-cyan uppercase tracking-wide mb-2">Semana 2-3</p>
-                        <p class="text-slate-600 text-sm">Construimos los "tubos" (ETL) que conectan tus fuentes dispersas en una base sólida.</p>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="bg-white p-6 rounded-xl border border-slate-100 shadow-sm text-center fade-in-section delay-200">
-                        <div class="w-16 h-16 bg-brand-cyan text-brand-dark rounded-full flex items-center justify-center font-bold text-2xl mx-auto mb-4 shadow-lg border-4 border-white">3</div>
-                        <h4 class="font-bold text-lg text-brand-dark">Visualización y Entrega</h4>
-                        <p class="text-xs font-semibold text-brand-cyan uppercase tracking-wide mb-2">Semana 4</p>
-                        <p class="text-slate-600 text-sm">Te entregamos el control total y capacitamos a tu equipo para ser autónomos.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. CASO DE ESTUDIO (Social Proof) -->
-    <section class="py-20 bg-brand-dark text-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden fade-in-section">
-                <!-- Decorative BG -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-cyan opacity-5 rounded-full blur-3xl -mr-16 -mt-16"></div>
-                
-                <h3 class="text-2xl font-bold mb-8 text-center md:text-left">Resultados reales, sin nombres inventados</h3>
-                
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div>
-                        <h4 class="text-brand-cyan font-bold mb-2 uppercase text-sm tracking-wide">El Reto</h4>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            E-commerce facturando $50k/mes sin saber su margen real por producto debido a discrepancias entre Ads y Shopify.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="text-brand-cyan font-bold mb-2 uppercase text-sm tracking-wide">La Solución</h4>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Dashboard unificado cruzando datos de Shopify (Ventas) + Meta Ads (Gasto) + Google Sheets (Costos de producto).
-                        </p>
-                    </div>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/5">
-                        <h4 class="text-brand-cyan font-bold mb-2 uppercase text-sm tracking-wide">El Resultado</h4>
-                        <div class="text-3xl font-bold text-white mb-1">$4,000 USD</div>
-                        <p class="text-slate-300 text-xs">Ahorro mensual detectado en la primera semana al cortar productos con ROI negativo.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. FAQ -->
-    <section class="py-20 bg-white">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <h3 class="text-2xl font-bold text-brand-dark text-center mb-10">Preguntas Frecuentes</h3>
-            
-            <div class="space-y-4">
-                <details class="group bg-brand-gray p-6 rounded-xl cursor-pointer hover:bg-brand-light transition-colors fade-in-section">
-                    <summary class="flex justify-between items-center font-bold text-brand-dark list-none">
-                        <span>¿Necesito contratar un software caro?</span>
-                        <span class="transition group-open:rotate-180 text-brand-cyan text-xl">▼</span>
-                    </summary>
-                    <p class="text-slate-700 mt-4 pl-4 border-l-2 border-brand-cyan">
-                        No. Generalmente usamos herramientas que ya tienes o versiones gratuitas potentes (como Power BI Desktop o Looker Studio). Solo pagas por nuestro servicio de implementación.
-                    </p>
-                </details>
-
-                <details class="group bg-brand-gray p-6 rounded-xl cursor-pointer hover:bg-brand-light transition-colors fade-in-section">
-                    <summary class="flex justify-between items-center font-bold text-brand-dark list-none">
-                        <span>¿Mis datos están seguros?</span>
-                        <span class="transition group-open:rotate-180 text-brand-cyan text-xl">▼</span>
-                    </summary>
-                    <p class="text-slate-700 mt-4 pl-4 border-l-2 border-brand-cyan">
-                        Absolutamente. Firmamos un acuerdo de confidencialidad (NDA) antes de empezar. Tú conservas la propiedad total de tus datos y accesos en todo momento.
-                    </p>
-                </details>
-
-                <details class="group bg-brand-gray p-6 rounded-xl cursor-pointer hover:bg-brand-light transition-colors fade-in-section">
-                    <summary class="flex justify-between items-center font-bold text-brand-dark list-none">
-                        <span>¿Sirve si mi negocio es pequeño?</span>
-                        <span class="transition group-open:rotate-180 text-brand-cyan text-xl">▼</span>
-                    </summary>
-                    <p class="text-slate-700 mt-4 pl-4 border-l-2 border-brand-cyan">
-                        Sirve si facturas y tienes datos dispersos que te impiden crecer. Si usas Excel para todo y sientes que pierdes el control, esto es para ti.
-                    </p>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. FOOTER & FINAL CTA -->
-    <footer class="bg-brand-dark text-white py-20 text-center relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1 bg-gradient-to-r from-brand-dark via-brand-cyan to-brand-dark"></div>
-        
-        <div class="max-w-3xl mx-auto px-4 relative z-10 flex flex-col items-center fade-in-section">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Listo para dejar de adivinar?</h2>
-            <p class="text-brand-light mb-10 text-lg opacity-90 max-w-xl mx-auto">
-                Tienes dos opciones: Seguir peleando con Excel o automatizar tu crecimiento hoy.
-            </p>
-            
-            <a href="https://dation.notion.site/Dation-analytics-2c31c32259b8806ca002c5f05803a11c" target="_blank" class="btn-primary bg-brand-cyan text-brand-dark hover:bg-white hover:text-brand-dark px-10 py-5 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transform transition-transform mb-12 border-0">
-                Agendar mi Sesión de Estrategia
-            </a>
-            
-            <div class="mb-8 bg-white p-4 rounded-xl shadow-lg">
-                <img src="https://raw.githubusercontent.com/nicsejara/Dation_Landing/main/Logo.png" alt="Dation Analytics Logo" class="h-12 w-auto object-contain">
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> Dation - Strategic Data Assets. Todos los derechos reservados.</p>
+                <p>
+                    Diseñado con <i class="fas fa-code" style="color: var(--accent-indigo); margin: 0 5px;"></i> y
+                    Estrategia.
+                </p>
             </div>
 
-            <div class="text-sm text-slate-400 flex flex-col md:flex-row gap-4 justify-center">
-                <span>© 2025 Dation Analytics. Todos los derechos reservados.</span>
-                <span class="hidden md:block">|</span>
-                <a href="#" class="hover:text-white transition-colors">Política de Privacidad</a>
-            </div>
         </div>
     </footer>
 
-    <!-- LOGIC SCRIPTS -->
     <script>
-        // --- 1. Animation Observer ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
+        // Set Year
+        document.getElementById("year").textContent = new Date().getFullYear();
 
-            document.querySelectorAll('.fade-in-section').forEach(section => {
-                observer.observe(section);
-            });
-        });
-
-        // --- 2. Chart.js Implementation (The "Control Tower" Visual) ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctxMain = document.getElementById('mainMetricsChart').getContext('2d');
-            
-            // Initial Data
-            const dataRevenue = [45000, 48000, 52000, 51000, 56000, 62000];
-
-            window.mainChart = new Chart(ctxMain, {
-                type: 'line',
-                data: {
-                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Ingresos ($)',
-                        data: dataRevenue,
-                        borderColor: '#42ffd7',
-                        backgroundColor: 'rgba(66, 255, 215, 0.1)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#003049',
-                        pointBorderColor: '#42ffd7',
-                        pointBorderWidth: 2,
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }, // Cleaner look for demo
-                        tooltip: { 
-                            mode: 'index', 
-                            intersect: false,
-                            backgroundColor: '#003049',
-                            titleColor: '#42ffd7',
-                            bodyColor: '#fff',
-                            borderColor: 'rgba(255,255,255,0.1)',
-                            borderWidth: 1
-                        }
-                    },
-                    scales: {
-                        y: {
-                            grid: { color: 'rgba(255,255,255,0.05)' },
-                            ticks: { color: '#94a3b8', font: {size: 10} }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#94a3b8', font: {size: 10} }
-                        }
-                    }
-                }
-            });
-        });
-
-        // Function to update the chart (Interaction Demo)
-        function updateChartData(metric) {
-            if(metric === 'revenue') {
-                window.mainChart.data.datasets[0].label = "Ingresos ($)";
-                window.mainChart.data.datasets[0].data = [45000, 48000, 52000, 51000, 56000, 62000];
-                window.mainChart.data.datasets[0].borderColor = '#42ffd7';
-                window.mainChart.data.datasets[0].backgroundColor = 'rgba(66, 255, 215, 0.1)';
-            } else if(metric === 'profit') {
-                window.mainChart.data.datasets[0].label = "Beneficio Neto ($)";
-                window.mainChart.data.datasets[0].data = [11250, 12000, 14000, 15300, 16800, 19200];
-                window.mainChart.data.datasets[0].borderColor = '#34D399'; // Green
-                window.mainChart.data.datasets[0].backgroundColor = 'rgba(52, 211, 153, 0.1)';
-            } else if(metric === 'cac') {
-                window.mainChart.data.datasets[0].label = "CAC ($)";
-                window.mainChart.data.datasets[0].data = [45, 46, 44, 45, 43, 42]; 
-                window.mainChart.data.datasets[0].borderColor = '#F472B6'; // Pink
-                window.mainChart.data.datasets[0].backgroundColor = 'rgba(244, 114, 182, 0.1)';
+        // Bento Grid Hover Effect
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.onmousemove = e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             }
-            window.mainChart.update();
-        }
+        });
 
-        // --- 3. ROI Calculator Logic ---
-        let selectedPeople = 1;
-        
-        function setPeople(num) {
-            selectedPeople = num;
-            const btns = document.querySelectorAll('.people-btn');
-            
-            btns.forEach(btn => {
-                if(parseInt(btn.dataset.val) === num) {
-                    btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-                    btn.classList.add('bg-brand-dark', 'text-white', 'border-transparent', 'shadow-md');
-                } else {
-                    btn.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-                    btn.classList.remove('bg-brand-dark', 'text-white', 'border-transparent', 'shadow-md');
+        // --- DASHBOARD SWITCHER LOGIC ---
+        function switchIndustry(industryId) {
+            // 1. Update Buttons
+            document.querySelectorAll('.dash-pill').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(industryId)) {
+                    btn.classList.add('active');
                 }
             });
-            calculateROI();
-        }
 
-        function calculateROI() {
-            const hours = parseInt(document.getElementById('hoursInput').value) || 0;
-            const hourlyRate = 30; // USD average cost
-            
-            document.getElementById('hoursDisplay').innerText = hours + 'h';
-            
-            const annualCost = hours * 52 * hourlyRate * selectedPeople;
-            const formattedCost = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(annualCost);
-            
-            document.getElementById('costDisplay').innerText = formattedCost;
+            // 2. Update Panels
+            document.querySelectorAll('.asset-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // 3. Show Target Panel
+            const targetPanel = document.getElementById('panel-' + industryId);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
         }
+        /* --- ACORDEÓN UX (SOLO UNO ABIERTO A LA VEZ) --- */
+        document.querySelectorAll('.faq-item').forEach((details) => {
+            details.addEventListener('toggle', (e) => {
+                if (details.open) {
+                    document.querySelectorAll('.faq-item').forEach((otherDetails) => {
+                        if (otherDetails !== details && otherDetails.open) {
+                            otherDetails.removeAttribute('open');
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
+
 </html>
