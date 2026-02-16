@@ -16,18 +16,17 @@
     <style>
         /* --- 1. DESIGN SYSTEM & RESET (OPTIMIZED) --- */
         :root {
-            /* --- PALETA --- */
+            /* --- PALETA (Intacta) --- */
             --bg-card: #050505;
             --bg-card-hover: #0a0a0a;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --border-color: #1f1f1f;
 
-            /* --- ACENTOS --- */
+            /* --- ACENTOS (Intactos) --- */
             --accent-cyan: #06b6d4;
             --accent-indigo: #6366f1;
             --brand-gradient: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
-
             --accent-glow: rgba(6, 182, 212, 0.4);
             --glass-bg: rgba(0, 0, 0, 0.85);
 
@@ -40,10 +39,22 @@
             --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
             --max-width: 1200px;
 
-            /* --- LAYOUT SYSTEM --- */
-            --navbar-height: 70px;
-            --section-spacing: 100px;
+            /* --- LAYOUT SYSTEM (OPTIMIZADO MÓVIL) --- */
+            /* Clamp(min, ideal, max): En móvil será 60px, en desktop 70px */
+            --navbar-height: clamp(60px, 8vh, 70px);
+
+            /* En móvil el espaciado entre secciones baja a 60px, en desktop sube a 100px */
+            --section-spacing: clamp(60px, 10vh, 100px);
+
             --container-padding: 24px;
+
+            /* TAMAÑOS DE FUENTE FLUIDOS */
+            /* H1: Mínimo 36px (móvil), Máximo 64px (desktop) */
+            --fs-h1: clamp(36px, 5vw + 1rem, 64px);
+            /* H2: Mínimo 28px, Máximo 42px */
+            --fs-h2: clamp(28px, 4vw + 1rem, 42px);
+            /* Párrafos Hero: Mínimo 16px, Máximo 20px */
+            --fs-p-hero: clamp(16px, 2vw, 20px);
         }
 
         * {
@@ -742,7 +753,7 @@
             height: 40px;
         }
 
-        /* --- 3. NAVIGATION --- */
+        /* --- 3. NAVIGATION (REFACTORIZADO MOBILE-FIRST) --- */
         .navbar {
             position: fixed;
             top: 0;
@@ -756,13 +767,14 @@
             z-index: 1000;
             display: flex;
             align-items: center;
+            transition: all 0.3s ease;
         }
 
         .nav-container {
             width: 100%;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 var(--container-padding);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -775,6 +787,8 @@
             align-items: center;
             gap: 10px;
             letter-spacing: -0.5px;
+            z-index: 1002;
+            /* Asegurar que el logo quede sobre el menú móvil */
         }
 
         .logo i {
@@ -783,6 +797,7 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* LINKS DE NAVEGACIÓN */
         .nav-links {
             display: flex;
             gap: 32px;
@@ -796,7 +811,7 @@
             position: relative;
         }
 
-        .nav-links a::after {
+        .nav-links a:not(.btn-ghost)::after {
             content: '';
             position: absolute;
             bottom: -4px;
@@ -807,92 +822,267 @@
             transition: width 0.3s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:not(.btn-ghost):hover {
             color: var(--text-main);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:not(.btn-ghost):hover::after {
             width: 100%;
         }
 
+        /* BOTÓN HAMBURGUESA (MÓVIL) */
         .mobile-menu-btn {
             display: none;
             font-size: 24px;
             cursor: pointer;
             color: var(--text-main);
+            z-index: 1002;
+            /* Sobre el menú desplegable */
+            background: none;
+            border: none;
+            padding: 5px;
         }
 
-        /* --- 4. HERO SECTION OPTIMIZED --- */
+        /* --- ESTILOS MÓVIL PARA NAVEGACIÓN --- */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            /* Transformación a Menú Off-Canvas */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
+                background: #000000;
+                /* Fondo sólido para legibilidad */
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transform: translateX(100%);
+                /* Oculto por defecto a la derecha */
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1001;
+                padding-bottom: 50px;
+                /* Espacio extra abajo */
+            }
+
+            /* Clase activa que añade JS */
+            .nav-links.active {
+                transform: translateX(0);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            }
+
+            /* Ajustes visuales de enlaces en móvil */
+            .nav-links a {
+                font-size: 24px;
+                /* Texto más grande para dedos */
+                font-weight: 600;
+            }
+
+            .nav-links .btn-ghost {
+                width: 80%;
+                text-align: center;
+                padding: 16px;
+                font-size: 18px;
+                background: rgba(255, 255, 255, 0.08);
+            }
+        }
+
+        /* --- 4. HERO SECTION (DATA EXPANSION & SOLID TEXT) --- */
         .hero {
-            text-align: center;
             position: relative;
-            background: transparent;
-            /* Flex layout para centrado vertical perfecto */
+            overflow: hidden;
             display: flex;
             align-items: center;
-            min-height: 90vh;
-            /* Aumentado para mayor impacto */
+            min-height: clamp(500px, 90vh, 900px);
+            padding-top: 40px;
+            background: transparent;
+            perspective: 1000px;
+            /* Profundidad para el efecto 3D sutil */
         }
 
-        .hero::before {
-            content: '';
+        /* --- NUEVA ATMÓSFERA: RADIAL DOTS EXPANSION --- */
+        .hero-atmosphere {
             position: absolute;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
-            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
             pointer-events: none;
+            /* Un fondo radial oscuro suave base */
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0) 0%, #000000 90%);
         }
 
+        /* Configuracion base de los anillos de puntos */
+        .data-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            width: 100vmax;
+            /* Asegura cubrir toda la pantalla */
+            height: 100vmax;
+            opacity: 0;
+
+            /* EL PATRÓN DE PUNTOS (Similar a tu imagen) */
+            background-image: radial-gradient(rgba(34, 211, 238, 0.25) 2px,
+                    /* Color Cyan muy sutil */
+                    transparent 2.5px);
+            background-size: 40px 40px;
+            /* Espaciado entre puntos */
+
+            /* MÁSCARA RADIAL: Hace que los bordes se desvanezcan */
+            mask-image: radial-gradient(circle at center, black 0%, transparent 60%);
+            -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 60%);
+        }
+
+        /* Capa 1: Animación principal */
+        .ring-1 {
+            animation: dataExpansion 15s linear infinite;
+        }
+
+        /* Capa 2: Retraso para crear el bucle infinito sin cortes */
+        .ring-2 {
+            animation: dataExpansion 15s linear infinite;
+            animation-delay: 7.5s;
+            /* Mitad del tiempo */
+        }
+
+        @keyframes dataExpansion {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+                /* Aparece cerca del centro */
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.5) rotate(10deg);
+                /* Se expande y gira levemente */
+                opacity: 0;
+                /* Desaparece al llegar al borde */
+            }
+        }
+
+
+        /* --- CONTENIDO --- */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* TÍTULO PRINCIPAL (Sólido y Ejecutivo) */
         .hero h1 {
-            font-size: 64px;
-            /* Más grande en desktop */
+            font-size: var(--fs-h1);
             line-height: 1.1;
             letter-spacing: -0.02em;
             margin: 0 0 24px;
             font-weight: 800;
-            /* Peso extra */
+
+            /* Blanco Sólido */
+            color: #ffffff;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            /* Sombra para separar del fondo */
+
+            /* Reset de efectos anteriores */
+            background: none;
+            -webkit-text-fill-color: initial;
         }
 
+        /* TEXTO DESTACADO (Gradiente Estático) */
         .shimmer-text {
-            background: linear-gradient(110deg, #94a3b8 35%, #ffffff 50%, #94a3b8 65%);
-            background-size: 250% 100%;
+            display: inline-block;
+            /* Gradiente Cyan -> Indigo */
+            background: linear-gradient(90deg, #22d3ee 0%, #818cf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 4s infinite linear;
-            /* Más lento y elegante */
-            display: inline-block;
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: 100% 0;
-            }
-
-            100% {
-                background-position: -100% 0;
-            }
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: var(--fs-p-hero);
             color: #cbd5e1;
-            /* Gris más claro */
             max-width: 700px;
             margin: 0 auto 48px;
             font-weight: 400;
             line-height: 1.6;
+            padding: 0 16px;
+            /* Fondo oscuro semitransparente detrás del texto pequeño para lectura perfecta */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .hero-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            align-items: center;
+        /* AJUSTES RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero {
+                align-items: center;
+                text-align: center;
+                padding-top: 40px;
+            }
+
+            /* En móvil reducimos el tamaño de la animación */
+            .data-ring {
+                background-size: 30px 30px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            /* --- HERO ACTIONS (GRID BALANCEADO) --- */
+            .hero-actions {
+                display: grid;
+                /* Creamos 2 columnas idénticas. El ancho se define por el contenido más largo */
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+                /* Espacio entre botones */
+
+                /* Restricción de ancho para que no sean infinitamente largos en monitores grandes */
+                max-width: 700px;
+                margin: 0 auto;
+                /* Centrado horizontal */
+                width: 100%;
+            }
+
+            /* Ajuste a los botones para que llenen la celda del Grid */
+            .hero-actions .btn-primary,
+            .hero-actions .btn-ghost {
+                width: 100%;
+                /* Ocupar todo el ancho de la columna del grid */
+                height: 100%;
+                /* Asegurar misma altura si el texto se rompe en dos líneas */
+                display: flex;
+                justify-content: center;
+                /* Centrar texto e icono horizontalmente */
+                align-items: center;
+                text-align: center;
+                white-space: normal;
+                /* Permitir que el texto largo se acomode si es necesario */
+                padding: 16px 24px;
+                /* Padding generoso */
+                line-height: 1.4;
+            }
+
+            /* RESPONSIVE: MÓVIL (Stack Vertical) */
+            @media (max-width: 768px) {
+                .hero-actions {
+                    /* En móvil pasamos a 1 sola columna */
+                    grid-template-columns: 1fr;
+                    gap: 16px;
+                    padding: 0 24px;
+                    /* Margen de seguridad lateral */
+                }
+            }
         }
 
         /* --- 6. PROBLEM AGITATION (REFACTORED 2x2) --- */
@@ -2227,6 +2417,323 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* =========================================
+       REFÁCTOR MÓVIL - FASE 2
+       (Pegar esto al final del <style>)
+       ========================================= */
+
+        /* --- 1. SECCIÓN RETOS (CARRUSEL SWIPE) --- */
+        @media (max-width: 768px) {
+            .problem-grid {
+                /* Transformamos la grilla en una fila deslizable */
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                /* Efecto imán al soltar */
+                gap: 16px;
+
+                /* Ajustes para que ocupe todo el ancho */
+                margin: 0 -24px;
+                padding: 0 24px 24px 24px;
+
+                /* Suavidad nativa */
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                /* Ocultar barra en Firefox */
+            }
+
+            /* Ocultar barra de scroll en Chrome/Safari */
+            .problem-grid::-webkit-scrollbar {
+                display: none;
+            }
+
+            .problem-card {
+                min-width: 85vw;
+                /* La tarjeta ocupa casi toda la pantalla */
+                scroll-snap-align: center;
+                /* Se centra sola */
+                background: var(--bg-card);
+                height: auto;
+                margin-bottom: 0;
+                /* Quitamos márgenes viejos */
+            }
+        }
+
+        /* --- 2. SECCIÓN SOLUCIONES (COMPACTA Y SIN ANIMACIÓN) --- */
+        @media (max-width: 900px) {
+
+            /* Ocultar la animación compleja (Línea de montaje) */
+            .assembly-line-container {
+                display: none !important;
+            }
+
+            /* Ajustar el contenedor del texto introductorio */
+            .sol-concept-banner {
+                display: block;
+                /* Deja de ser flex, ahora es bloque */
+                padding: 24px;
+                margin-bottom: 30px;
+            }
+
+            .sol-concept-text {
+                width: 100%;
+                text-align: left;
+            }
+
+            /* Compactar la "Tríada" (las 3 tarjetas debajo) */
+            .sol-triad-grid {
+                grid-template-columns: 1fr;
+                /* Una sola columna */
+                gap: 16px;
+                margin-bottom: 40px;
+            }
+
+            .sol-triad-card {
+                padding: 20px;
+            }
+
+            /* Compactar los Pasos (01, 02, 03) */
+            .sol-process-container::before {
+                left: 19px;
+                /* Alinear línea vertical */
+            }
+
+            .sol-step {
+                gap: 16px;
+                margin-bottom: 30px;
+            }
+
+            .sol-step-marker {
+                width: 40px;
+                /* Círculo más chico */
+                height: 40px;
+                font-size: 14px;
+                flex-shrink: 0;
+            }
+
+            .sol-step-content {
+                padding: 20px;
+            }
+
+            .sol-step-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        /* =========================================
+       REFÁCTOR MÓVIL - FASE 3 (DASHBOARD)
+       (Pegar esto al final del <style>, después de la Fase 2)
+       ========================================= */
+
+        @media (max-width: 900px) {
+
+            /* --- 1. NAVEGACIÓN SECTORIAL (TIRA HORIZONTAL) --- */
+            .dashboard-nav {
+                /* Convertimos la grilla en flexbox horizontal */
+                display: flex;
+                flex-wrap: nowrap;
+                /* Forzar una sola línea */
+                overflow-x: auto;
+                /* Habilitar scroll horizontal */
+                gap: 12px;
+                padding-bottom: 10px;
+                /* Espacio para el dedo */
+                margin-bottom: 24px;
+
+                /* Reset de propiedades de Grid */
+                grid-template-columns: none;
+                width: 100%;
+
+                /* Ocultar barra de scroll (estética) */
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .dashboard-nav::-webkit-scrollbar {
+                display: none;
+            }
+
+            .dash-pill {
+                /* Evitar que los botones se aplasten */
+                flex: 0 0 auto;
+                width: auto;
+
+                /* Diseño más compacto tipo "Chip" */
+                flex-direction: row;
+                /* Icono al lado del texto, no arriba */
+                padding: 10px 20px;
+                height: auto;
+                border-radius: 99px;
+                font-size: 13px;
+            }
+
+            .dash-pill i {
+                margin-bottom: 0;
+                margin-right: 8px;
+                font-size: 14px;
+            }
+
+            /* --- 2. CONTENEDOR DE TARJETAS (REFLOW) --- */
+            .dashboard-container {
+                /* Quitamos la altura fija para que se adapte al contenido */
+                height: auto;
+                min-height: auto;
+                overflow: visible;
+                border: none;
+                background: transparent;
+            }
+
+            /* --- 3. TARJETA INDIVIDUAL (STACK VERTICAL) --- */
+            .asset-card {
+                /* Reset de posición absoluta (CRÍTICO) */
+                position: relative;
+                top: auto;
+                left: auto;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+
+                /* Layout vertical */
+                display: none;
+                /* Ocultamos todas por defecto */
+                flex-direction: column;
+                height: auto;
+                margin-bottom: 0;
+            }
+
+            /* Solo mostramos la tarjeta activa */
+            .asset-card.active {
+                display: flex;
+                animation: fadeIn 0.4s ease-out;
+            }
+
+            /* Parte Visual (Gráfico) */
+            .asset-visual-sim {
+                order: -1;
+                /* Mover visual arriba */
+                height: 200px;
+                /* Altura reducida (antes 400px+) */
+                min-height: 200px;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            /* Parte de Datos (Texto) */
+            .asset-data {
+                padding: 24px;
+                border-right: none;
+            }
+
+            .asset-title {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+
+            .tech-stack-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .tech-item {
+                font-size: 12px;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 4px 8px;
+                border-radius: 4px;
+                margin-bottom: 0;
+            }
+        }
+
+        /* =========================================
+       REFÁCTOR MÓVIL - FASE 4 (FINAL)
+       (Pegar al final del <style>)
+       ========================================= */
+
+        @media (max-width: 768px) {
+
+            /* --- 1. FOOTER COMPACTO (GRID 2x2) --- */
+            .footer {
+                padding-top: 60px;
+                /* Reducir aire superior */
+            }
+
+            .footer-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                /* Dos columnas equilibradas */
+                gap: 40px 20px;
+                /* 40px vertical, 20px horizontal */
+                text-align: left;
+            }
+
+            /* El bloque de Marca/Logo ocupa todo el ancho arriba */
+            .footer-brand {
+                grid-column: 1 / -1;
+                /* Span de borde a borde */
+                margin-bottom: 10px;
+                text-align: center;
+                /* Centrado para dar balance */
+            }
+
+            .footer-brand p {
+                margin: 20px auto 0;
+                /* Centrar el texto descriptivo */
+            }
+
+            /* Ajustes de tipografía para ahorrar espacio */
+            .footer-col h5 {
+                font-size: 11px;
+                margin-bottom: 16px;
+            }
+
+            .footer-col ul li {
+                margin-bottom: 10px;
+            }
+
+            .footer-col a {
+                font-size: 13px;
+                /* Texto un poco más pequeño */
+            }
+
+            /* Bloque de Contacto (Ocupa todo el ancho abajo) */
+            .footer-col:last-child {
+                grid-column: 1 / -1;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                padding-top: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                /* Centrar contacto */
+            }
+
+            /* --- 2. PULIDO FINAL DE ESPACIADO --- */
+            /* Forzar reducción de padding en todas las secciones */
+            .section-block {
+                padding: 60px 0 !important;
+            }
+
+            /* Ajuste de la tarjeta CTA final */
+            .cta-card {
+                border-radius: 24px;
+                padding: 40px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+                /* Título final más controlado */
+            }
+
+            /* Líneas divisorias de neón menos agresivas */
+            .tech-divider-container {
+                padding: 0 10px;
+            }
+
+            .tech-divider {
+                opacity: 0.6;
+            }
+        }
     </style>
 </head>
 
@@ -2239,22 +2746,31 @@
                     class="logo-img" style="margin-right: 10px;">
                 Dation
             </a>
-            <div class="nav-links">
-                <a href="#BloqueRetos">Retos</a>
-                <a href="#BloqueSoluciones">Soluciones</a>
-                <a href="#BloqueSector">Sectores</a>
-                <a href="#faq">FAQ</a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#BloqueRetos" onclick="toggleMenu()">Retos</a>
+                <a href="#BloqueSoluciones" onclick="toggleMenu()">Soluciones</a>
+                <a href="#BloqueSector" onclick="toggleMenu()">Sectores</a>
+                <a href="#faq" onclick="toggleMenu()">FAQ</a>
                 <a href="https://calendar.app.google/Wzwt1VmGX9WbFr8A9" target="_blank" class="btn-ghost"
                     style="padding: 10px 20px; background: rgba(255,255,255,0.1);">
                     Agendar cita gratis
                 </a>
             </div>
-            <i class="fas fa-bars mobile-menu-btn"></i>
+
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
     <section class="hero section-block">
-        <div class="container-centered text-center">
+        <div class="hero-atmosphere">
+            <div class="data-ring ring-1"></div>
+            <div class="data-ring ring-2"></div>
+        </div>
+
+        <div class="container-centered text-center hero-content">
 
             <div class="badge">
                 <i class="fas fa-brain" style="margin-right: 8px; font-size: 11px;"></i>
@@ -2269,8 +2785,7 @@
             <p>
                 Deje de mirar el pasado en dashboards estáticos que nadie usa. Construimos <strong>Data Decision Assets
                     (DDA)</strong>: nodos de decisiones AI-Driven que conectan sus datos con el contexto
-                actual para
-                decirle exactamente <strong>qué hacer hoy</strong>.
+                actual para decirle exactamente <strong>qué hacer hoy</strong>.
             </p>
 
             <div class="hero-actions">
@@ -2279,9 +2794,10 @@
                 </a>
 
                 <a href="#BloqueSoluciones" class="btn-ghost" style="border-radius: 99px; padding: 14px 28px;">
-                    Ver cómo funciona un Data Decision Asset
+                    Ver cómo funciona un DDA
                 </a>
             </div>
+        </div>
     </section>
 
     <div class="tech-divider-container">
@@ -3257,6 +3773,24 @@
                 }
             });
         });
+
+        /* --- MOBILE MENU LOGIC --- */
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const btn = document.querySelector('.mobile-menu-btn i');
+
+            // Toggle clase active
+            nav.classList.toggle('active');
+
+            // Cambiar icono de hamburguesa a X
+            if (nav.classList.contains('active')) {
+                btn.classList.remove('fa-bars');
+                btn.classList.add('fa-times');
+            } else {
+                btn.classList.remove('fa-times');
+                btn.classList.add('fa-bars');
+            }
+        }
     </script>
 </body>
 
